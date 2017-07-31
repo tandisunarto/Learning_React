@@ -1,15 +1,20 @@
-import React from 'react'
+import React from 'react';
+import * as _ from 'lodash';
+
 
 var Numbers = (p) => {
+    // const arrayOfNumbers = _.range(1, 9);
+
     return (
         <div className="card text-center">
-            <div>
-                <span>1</span>
-                <span>2</span>
-                <span>3</span>
-            </div>
+             <div>
+                {Numbers.list.map(
+                    (number, i) => <span key={i}>{number}</span>
+                )}
+            </div> 
         </div>
     );
 }
+Numbers.list = _.range(1, 10);
 
 export default Numbers;
