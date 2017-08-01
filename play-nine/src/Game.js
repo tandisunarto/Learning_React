@@ -7,6 +7,10 @@ import './App.css';
 
 
 class Game extends Component {
+    state = {
+        selectedNumbers: [3, 7]
+    };
+
     render() {
         return ( 
             <div>
@@ -15,9 +19,9 @@ class Game extends Component {
                     <div className="row space-buttom">
                         <Star />
                         <GameButton />
-                        <Answer />
+                        <Answer selectedNumbers={this.state.selectedNumbers} />
                     </div>
-                    <Numbers />
+                    <Numbers selectedNumbers={this.state.selectedNumbers} />
                 </div>
             </div>
         );

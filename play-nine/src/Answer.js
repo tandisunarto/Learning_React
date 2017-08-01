@@ -3,10 +3,12 @@ import React from 'react';
 const Answer = (props) => {
     return (
         <div className="col-5">
-            <span>1</span>
-            <span>2</span>
+            {
+                props.selectedNumbers.map((number, i) =>
+                    <span key={i}>{number}</span>
+            )}
         </div>
-    )
-}
+    );
+};
 
 export default Answer
