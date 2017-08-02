@@ -13,7 +13,10 @@ var Numbers = (p) => {
         <div className="card text-center">
              <div>
                 {Numbers.list.map(
-                    (number, i) => <span className={numberClassName(number)} key={i}>{number}</span>
+                    (number, i) => 
+                        <span className={numberClassName(number)} 
+                            onClick={() => p.selectNumber(number)}
+                            key={i}>{number}</span>
                 )}
             </div> 
         </div>
