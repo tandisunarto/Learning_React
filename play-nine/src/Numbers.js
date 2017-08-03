@@ -4,6 +4,9 @@ import * as _ from 'lodash';
 
 var Numbers = (p) => {
     const numberClassName = (number) => {
+        if (p.usedNumbers.indexOf(number) >= 0) {
+            return 'used';
+        }
         if (p.selectedNumbers.indexOf(number) >= 0) {
             return 'selected';
         }
