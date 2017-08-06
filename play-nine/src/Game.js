@@ -11,7 +11,8 @@ class Game extends Component {
         selectedNumbers: [],
         numberOfStars: 1 + Math.floor(Math.random() * 9),
         answerIsCorrect: null,
-        usedNumbers: []
+        usedNumbers: [],
+        redraws: 5,
     };
 
     unselectNumber = (clickedNumber) => {
@@ -49,12 +50,24 @@ class Game extends Component {
         }))
     };
 
+    redraw = () => {
+        if (this.state.redraws > 0) {
+            this.setState(prevState => ({
+                numberOfStars: 1 + Math.floor(Math.random() * 9),
+                answerIsCorrect: null,
+                selectedNumbers: [],
+                redraws: prevState.redraws - 1,
+            }))
+        }
+    };
+
     render() {
         const { 
             selectedNumbers, 
             numberOfStars, 
             answerIsCorrect,
-            usedNumbers
+            usedNumbers,
+            redraws
         } = this.state;
 
         return ( 
@@ -66,6 +79,8 @@ class Game extends Component {
                         <GameButton selectedNumbers={selectedNumbers} 
                                     acceptAnswer={this.acceptAnswer}
                                     checkAnswer={this.checkAnswer}
+                                    redraw={this.redraw}
+                                    redraws={redraws}
                                     answerIsCorrect={answerIsCorrect} />
                         <Answer selectedNumbers={selectedNumbers}
                                 unselectNumber={this.unselectNumber} />

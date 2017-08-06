@@ -13,11 +13,19 @@ const GameButton = (props) => {
         default:
             button = <Button onClick={props.checkAnswer} disabled={props.selectedNumbers.length === 0} 
                 className="fa fa-check"
-                color="default"></Button>;
+                color="default"></Button>;  
             break;            
     }
     return (
-        <div className="col-2">{button}</div>
+        <div className="col-2">
+            {button}
+            <div>
+                <button onClick={props.redraw} className="btn btn-warning button-refresh"
+                    disabled={props.redraws === 0}>
+                    <i className="fa fa-refresh" /> {props.redraws}
+                </button>
+            </div>
+        </div>
     )
 }
 
