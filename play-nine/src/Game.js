@@ -3,16 +3,22 @@ import Star from './Star';
 import GameButton from './GameButton';
 import Answer from './Answer';
 import Numbers from './Numbers';
+import DoneFrame from './DoneFrame'
 import './App.css';
+
+import * as _ from 'lodash';
 
 
 class Game extends Component {
+    randomNumber = () => 1 + Math.floor(Math.random() * 9);
+
     state = {
         selectedNumbers: [],
-        numberOfStars: 1 + Math.floor(Math.random() * 9),
+        numberOfStars: this.randomNumber(),
         answerIsCorrect: null,
         usedNumbers: [],
         redraws: 5,
+        doneStatus: 'Done'
     };
 
     unselectNumber = (clickedNumber) => {
@@ -46,19 +52,56 @@ class Game extends Component {
             usedNumbers: prevState.usedNumbers.concat(prevState.selectedNumbers),
             selectedNumbers: [],
             answerIsCorrect: null,
-            numberOfStars: 1 + Math.floor(Math.random() * 9)
-        }))
+            numberOfStars: this.randomNumber()
+        }), this.updateDoneStatus)
     };
 
     redraw = () => {
         if (this.state.redraws > 0) {
             this.setState(prevState => ({
-                numberOfStars: 1 + Math.floor(Math.random() * 9),
+                numberOfStars: this.randomNumber(),
                 answerIsCorrect: null,
                 selectedNumbers: [],
                 redraws: prevState.redraws - 1,
-            }))
+            }), this.updateDoneStatus)
         }
+    };
+
+    updateDoneStatus = () => {
+        this.setState(prevState => {
+            if (prevState.usedNumbers.length === 9) {
+                return { doneStatus: 'You beat the game'};
+            }
+            if (prevState.redraw === 0 && !this.possibleSolutions(prevState)) {
+                return { doneStatus: 'Game Over. You lost'};
+            }
+        })
+    }
+
+    possibleSolutions = ({numberOfStars, usedNumbers}) => {
+        const possibleSolutions = _.range(1, 10).filter(number =>
+            usedNumbers.indexOf(number) === -1
+        );
+
+        return this.possibleCombinationSum(this.possibleNumbers, numberOfStars);
+    }
+
+    possibleCombinationSum = function (arr, n) {
+        if (arr.indexOf(n) >= 0) { return true; }
+        if (arr[0] > n) { return false; }
+        if (arr[arr.length - 1] > n) {
+            arr.pop();
+            return this.possibleCombinationSum(arr, n);
+        }
+        var listSize = arr.length, combinationsCount = (1 << listSize)
+        for (var i = 1; i < combinationsCount; i++) {
+            var combinationSum = 0;
+            for (var j = 0; j < listSize; j++) {
+                if (i & (1 << j)) { combinationSum += arr[j]; }
+            }
+            if (n === combinationSum) { return true; }
+        }
+        return false;
     };
 
     render() {
@@ -67,7 +110,8 @@ class Game extends Component {
             numberOfStars, 
             answerIsCorrect,
             usedNumbers,
-            redraws
+            redraws,
+            doneStatus
         } = this.state;
 
         return ( 
@@ -85,9 +129,13 @@ class Game extends Component {
                         <Answer selectedNumbers={selectedNumbers}
                                 unselectNumber={this.unselectNumber} />
                     </div>
-                    <Numbers selectedNumbers={selectedNumbers}
-                            selectNumber={this.selectNumber} 
-                            usedNumbers={usedNumbers} />
+                    {doneStatus ? 
+                        <DoneFrame doneStatus={doneStatus} /> :                    
+                        <Numbers selectedNumbers={selectedNumbers}
+                                selectNumber={this.selectNumber} 
+                                usedNumbers={usedNumbers} />
+                    }
+                    
                 </div>
             </div>
         );

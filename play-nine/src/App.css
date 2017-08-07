@@ -55,6 +55,14 @@ span {
   cursor: pointer;
 }
 
+.redraw-section {
+  border: 1px solid gray;
+  padding: 10px;
+  margin-left: 40%;
+  margin-right: 40%;
+  background-color: silver;
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
