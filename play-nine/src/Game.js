@@ -12,14 +12,16 @@ import * as _ from 'lodash';
 class Game extends Component {
     randomNumber = () => 1 + Math.floor(Math.random() * 9);
 
-    state = {
+    initialState = () => ({
         selectedNumbers: [],
         numberOfStars: this.randomNumber(),
         answerIsCorrect: null,
         usedNumbers: [],
         redraws: 5,
-        doneStatus: 'Done'
-    };
+        doneStatus: null
+    });
+
+    state = this.initialState();
 
     unselectNumber = (clickedNumber) => {
         this.setState(prevState => ({
@@ -68,6 +70,7 @@ class Game extends Component {
     };
 
     updateDoneStatus = () => {
+        console.log('>>>>> ' + Date.now() + ' updating done status ');
         this.setState(prevState => {
             if (prevState.usedNumbers.length === 9) {
                 return { doneStatus: 'You beat the game'};
@@ -104,6 +107,10 @@ class Game extends Component {
         return false;
     };
 
+    resetGame = () => {
+        this.setState(this.initialState());
+    }
+
     render() {
         const { 
             selectedNumbers, 
@@ -130,7 +137,8 @@ class Game extends Component {
                                 unselectNumber={this.unselectNumber} />
                     </div>
                     {doneStatus ? 
-                        <DoneFrame doneStatus={doneStatus} /> :                    
+                        <DoneFrame doneStatus={doneStatus} 
+                                    resetGame={this.resetGame} /> :                    
                         <Numbers selectedNumbers={selectedNumbers}
                                 selectNumber={this.selectNumber} 
                                 usedNumbers={usedNumbers} />
