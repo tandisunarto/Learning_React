@@ -70,8 +70,15 @@ class Game extends Component {
     };
 
     updateDoneStatus = () => {
-        console.log('>>>>> ' + Date.now() + ' updating done status ');
+        var d = new Date();
+        console.log('>>>> ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds());
+
         this.setState(prevState => {
+        // console.log('>>>> prevState.usedNumbers.length: ' + prevState.usedNumbers.length);
+        // console.log('>>>> this.possibleSolutions(prevState): ' + this.possibleSolutions(prevState));
+        // console.log('>>>> prevState.redraw: ' + prevState.redraw);
+        console.log(prevState);
+
             if (prevState.usedNumbers.length === 9) {
                 return { doneStatus: 'You beat the game'};
             }
@@ -82,11 +89,11 @@ class Game extends Component {
     }
 
     possibleSolutions = ({numberOfStars, usedNumbers}) => {
-        const possibleSolutions = _.range(1, 10).filter(number =>
+        const possibleNumbers = _.range(1, 10).filter(number =>
             usedNumbers.indexOf(number) === -1
         );
 
-        return this.possibleCombinationSum(this.possibleNumbers, numberOfStars);
+        return this.possibleCombinationSum(possibleNumbers, numberOfStars);
     }
 
     possibleCombinationSum = function (arr, n) {
