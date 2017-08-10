@@ -70,19 +70,11 @@ class Game extends Component {
     };
 
     updateDoneStatus = () => {
-        var d = new Date();
-        console.log('>>>> ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds());
-
         this.setState(prevState => {
-        // console.log('>>>> prevState.usedNumbers.length: ' + prevState.usedNumbers.length);
-        // console.log('>>>> this.possibleSolutions(prevState): ' + this.possibleSolutions(prevState));
-        // console.log('>>>> prevState.redraw: ' + prevState.redraw);
-        console.log(prevState);
-
             if (prevState.usedNumbers.length === 9) {
                 return { doneStatus: 'You beat the game'};
             }
-            if (prevState.redraw === 0 && !this.possibleSolutions(prevState)) {
+            if (prevState.redraws === 0 && !this.possibleSolutions(prevState)) {
                 return { doneStatus: 'Game Over. You lost'};
             }
         })
