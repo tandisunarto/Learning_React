@@ -18,6 +18,10 @@
         "no-unreachable": "warn",
         "no-unused-vars": "warn",
         "constructor-super": "warn",
-        "valid-typeof": "warn"
+        "valid-typeof": "warn",
+        "react/prefer-stateless-function": 0,
+        "jsx-a11y/image-has-alt": 0,
+        "prefer-template": 0,
+        "react/no-did-mount-set-state": 0
     }
 }
