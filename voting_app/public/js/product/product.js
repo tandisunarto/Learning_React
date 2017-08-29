@@ -1,6 +1,17 @@
 class Product extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.handleUpVote = this.handleUpVote.bind(this);
+    }
+
+    handleUpVote() {
+        this.props.onVote(this.props.product.id);
+    };
+
     render() {
         const product = this.props.product;
+
         return (
             <div className='item'>
                 <div className='image'>
@@ -8,7 +19,7 @@ class Product extends React.Component {
                 </div>
                 <div className='middle aligned content'>
                     <div className='header'>
-                        <a><i className='large caret up icon' /></a>
+                        <a onClick={this.handleUpVote}><i className='large caret up icon' /></a>
                         {product.votes}
                     </div>
                     <div className='description'>
