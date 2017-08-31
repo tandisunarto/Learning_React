@@ -9,7 +9,8 @@ class ProductList extends React.Component {
                         product, 
                         {
                             votes: product.votes + 1
-                        })
+                        }
+                    )
                 } else {
                     return product;
                 }
@@ -42,8 +43,8 @@ class ProductList extends React.Component {
             b.votes - a.votes
         ));
 
-        const productComponent = Seed.products.map(
-            (product) => (                
+        const productComponent = this.state.products.map(
+            (product) => (
                 <Product 
                     onVote={this.handleProductUpVote}
                     key={product.id} 
