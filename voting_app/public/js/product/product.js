@@ -2,12 +2,18 @@ class Product extends React.Component {
 
     constructor(props) {
         super(props);
-        this.handleUpVote = this.handleUpVote.bind(this);
+
+        // ** use arrow function, "this" inside arrow function points to the component
+        // this.handleUpVote = this.handleUpVote.bind(this);
     }
 
-    handleUpVote() {
-        this.props.onVote(this.props.product.id);
-    };
+    // handleUpVote() {
+    //     this.props.onVote(this.props.product.id);
+    // };
+
+    handleUpVote = () => {
+        this.props.onUpVote(this.props.product.id);
+    }
 
     render() {
         const product = this.props.product;

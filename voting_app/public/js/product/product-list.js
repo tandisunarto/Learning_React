@@ -46,7 +46,7 @@ class ProductList extends React.Component {
         const productComponent = this.state.products.map(
             (product) => (
                 <Product 
-                    onVote={this.handleProductUpVote}
+                    onUpVote={this.handleProductUpVote}
                     key={product.id} 
                     product={product} />
             )
