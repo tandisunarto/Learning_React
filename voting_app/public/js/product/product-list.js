@@ -29,7 +29,7 @@ class ProductList extends React.Component {
             products: []
         }
 
-        this.handleProductUpVote = this.handleProductUpVote.bind(this);
+        // this.handleProductUpVote = this.handleProductUpVote.bind(this);
     }
 
     componentDidMount() {
