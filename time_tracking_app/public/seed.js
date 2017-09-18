@@ -1,16 +1,16 @@
 const TimerSeed = [
     {
-        title: 'Learn React',
-        project: 'Web Domination',
-        elapsed: '8986300',
-        runningSince: null,
-        editFormOpen: false
+        title: 'Practice Squat',
+        project: 'Gym Chores',
+        elapsed: '5456099',
+        id: uuid.v4(),
+        runningSince: Date.now()
     },
     {
-        title: 'Learn Extreme Ironing',
-        project: 'World Domination',
-        elapsed: '3890985',
-        runningSince: null,
-        editFormOpen: true
+        title: 'Bake Squash',
+        project: 'Kitchen Chores',
+        elapsed: '1273998',
+        id: uuid.v4(),
+        runningSince: Date.now()
     }
 ]

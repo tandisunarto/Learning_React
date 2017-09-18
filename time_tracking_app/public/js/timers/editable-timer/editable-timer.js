@@ -1,8 +1,12 @@
 class EditableTimer extends React.Component {
 
+    state = {
+        editFormOpen: true,
+    }
+
     render() {
-        const timer = this.props.timers;
-        if (timer.editFormOpen) {
+        const timer = this.props.timer;
+        if (this.state.editFormOpen) {
             return (
                 <TimerForm
                     timer={timer} />
@@ -18,11 +22,32 @@ class EditableTimer extends React.Component {
 }
 
 class TimerForm extends React.Component {
-    render() {
-         var timer = this.props.timer;
-         if (timer === undefined)
-             timer = { title: null, project: null }
 
+    state = {
+        timer: {
+            title: this.props.timer == null ? '' : this.props.timer.title || '',
+            project: this.props.timer == null ? '' : this.props.timer.project || '',            
+        }        
+    }
+
+    handleTitleChange = (e) => {
+        this.setState({
+            timer = {
+                title = e.target.value
+            }
+        })
+    }
+
+    handleProjectChange = (e) => {
+        this.setState({
+            timer = {
+                Project = e.target.value
+            }
+        })
+    }
+
+    render() {
+        var timer = this.state.timer;
         const submitText = timer.title ? 'Update' : 'Create';
         return (
             <div className='ui centered card'>
@@ -30,11 +55,13 @@ class TimerForm extends React.Component {
                     <div className='ui form'>
                         <div className='field'>
                             <label>Title</label>
-                            <input type='text' defaultValue={timer.title} />
+                            <input type='text' value={timer.title}
+                                onChange={handleTitleChange} />
                         </div>
                         <div className='field'>
                             <label>Project</label>
-                            <input type='text' defaultValue={timer.project} />
+                            <input type='text' value={timer.project}
+                                onChange={handleProjectChange} />
                         </div>
                         <div className='ui two bottom attached buttons'>
                             <button className='ui basic blue button'>
