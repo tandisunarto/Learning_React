@@ -4,12 +4,29 @@ class TimersDashboard extends React.Component {
         timers: TimerSeed
     }
 
+    handleCreateFormSubmit = (data) => {
+        this.createTimer(data.timer);
+    }
+
+    createTimer = (timer) => {        
+        const t = helpers.newTimer(timer);        
+        this.setState({
+            timers: this.state.timers.concat(t)
+        });
+    };
+
+    handleEditFormSubmit = (timer) => {
+
+    }
+
     render() {
         return (
             <div className="ui three column centered grid">
                 <div className="column">
                     <EditableTimerList timers={this.state.timers} />
-                    <ToggleableTimerForm isOpen={false} />
+                    <ToggleableTimerForm 
+                        onFormSubmit={this.handleCreateFormSubmit}
+                        isOpen={false} />
                 </div>
             </div>
         )
