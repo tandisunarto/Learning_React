@@ -5,3 +5,8 @@
 #content {
   margin-top: 3em;
 }
+
+i.edit.icon,
+i.trash.icon {
+  cursor: pointer;
+}
