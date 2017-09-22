@@ -1,9 +1,9 @@
 class EditableTimerList extends React.Component {
-    
-    timers = this.props.timers;
-    
+
     render() {
-        const editableTimers = this.timers.map(
+        const timers = this.props.timers;
+
+        const editableTimers = timers.map(
             (timer) => (
                 <EditableTimer 
                     timer={timer} 

@@ -8,7 +8,7 @@ class EditableTimer extends React.Component {
         console.log('Editable Timer back from Timer Form');
     }
 
-    render() {
+    render() {        
         const timer = this.props.timer;
         if (this.state.editFormOpen) {
             return (
