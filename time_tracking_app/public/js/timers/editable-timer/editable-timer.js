@@ -29,10 +29,6 @@ class EditableTimer extends React.Component {
         this.openForm();
     }
 
-    handleDeleteClick = () => {
-        this.props.onDeleteClicked();
-    }
-
     render() {
         const timer = this.props.timer;
         if (this.state.editFormOpen) {
@@ -45,7 +41,7 @@ class EditableTimer extends React.Component {
         } else {
             return (
                 <Timer
-                    onDeleteClick={this.handleDeleteClick}
+                    onDeleteClick={this.props.onDeleteClick}
                     onEditClick={this.handleEditClick}
                     timer={timer} />
             )
@@ -127,6 +123,11 @@ class TimerForm extends React.Component {
 }
 
 class Timer extends React.Component {
+
+    handleDeleteClick = () => {
+        this.props.onDeleteClick(this.props.timer.id);
+    }
+
     render() {
         var timer = this.props.timer;
         const elapsedString = helpers.renderElapsedString(timer.elapsed);
@@ -150,7 +151,7 @@ class Timer extends React.Component {
                             <i className='edit icon' />
                         </span>
                         <span className='right floated trash icon'
-                            onClick={this.props.onDeleteClick}>
+                            onClick={this.handleDeleteClick}>
                             <i className='trash icon' />
                         </span>
                     </div>

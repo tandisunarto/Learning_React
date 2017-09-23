@@ -6,6 +6,7 @@ class EditableTimerList extends React.Component {
         const editableTimers = timers.map(
             (timer) => (
                 <EditableTimer 
+                    onDeleteClick={this.props.onDeleteClick}
                     onFormSubmit={this.props.onFormSubmit}
                     timer={timer} 
                     key={timer.id} />
