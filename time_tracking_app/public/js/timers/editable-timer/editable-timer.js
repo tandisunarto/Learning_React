@@ -124,13 +124,23 @@ class TimerForm extends React.Component {
 
 class Timer extends React.Component {
 
+    componentDidMount() {
+        // this.forceUpdateInternal = setInterval(() => this.forceUpdate(), 50);
+    }
+
+    componenentWillUnmount() {
+        // clearInterval(this.forceUpdateInternal);
+    }
+
     handleDeleteClick = () => {
         this.props.onDeleteClick(this.props.timer.id);
     }
 
     render() {
         var timer = this.props.timer;
-        const elapsedString = helpers.renderElapsedString(timer.elapsed);
+        console.log(timer);
+        console.log(helpers.renderElapsedString(timer.elapsed, timer.runningSince));
+        const elapsedString = helpers.renderElapsedString(timer.elapsed, timer.runningSince);
         return (
             <div className='ui centered card'>
                 <div className='content'>
