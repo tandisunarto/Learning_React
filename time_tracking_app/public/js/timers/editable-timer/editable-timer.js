@@ -125,11 +125,11 @@ class TimerForm extends React.Component {
 class Timer extends React.Component {
 
     componentDidMount() {
-        // this.forceUpdateInternal = setInterval(() => this.forceUpdate(), 50);
+        this.forceUpdateInternal = setInterval(() => this.forceUpdate(), 50);
     }
 
     componenentWillUnmount() {
-        // clearInterval(this.forceUpdateInternal);
+        clearInterval(this.forceUpdateInternal);
     }
 
     handleDeleteClick = () => {
