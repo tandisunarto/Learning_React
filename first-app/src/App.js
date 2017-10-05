@@ -5,7 +5,8 @@ import TestButton from './Button';
 import { Greeting } from './Greeting';
 
 class App extends Component {
-  title = 2017;  
+  // if title is set to a value type of number 2017, the warning will show up on the console
+  title = "2017"; 
 
   render() {    
     return (
