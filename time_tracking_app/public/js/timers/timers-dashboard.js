@@ -4,6 +4,16 @@ class TimersDashboard extends React.Component {
         timers: TimerSeed
     }
 
+    static childContextTypes = {
+        timers: PropTypes.array
+    }
+
+    getChildContext() {
+        return {
+            timers: this.state.timers
+        }
+    }
+
     handleCreateFormSubmit = (data) => {
         this.createTimer(data.timer);
     }
@@ -102,7 +112,8 @@ class TimersDashboard extends React.Component {
                         onStopClick={this.handleStopClick}
                         onDeleteClick={this.handleDeleteClick}
                         onFormSubmit={this.handleEditFormSubmit}
-                        timers={this.state.timers} />
+                        //timers={this.state.timers} 
+                        />
                     <ToggleableTimerForm 
                         onFormSubmit={this.handleCreateFormSubmit}
                         isOpen={false} />
