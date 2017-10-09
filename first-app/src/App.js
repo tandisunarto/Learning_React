@@ -2,12 +2,26 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import TestButton from './Button';
+import TestLabel from './TestLabel';
 import { Greeting } from './Greeting';
+import PropTypes from '../node_modules/prop-types/prop-types';
+
 
 class App extends Component {
   // if title is set to a value type of number 2017, the warning will show up on the console
   title = "2017"; 
   subTitle = "What's up !!";
+  otherLabel = "This is a nice looking label";
+
+  static childContextTypes = {
+    testLabel: PropTypes.string
+  }
+
+  getChildContext() {
+    return {
+      testLabel: this.otherLabel
+    }
+  }
 
   render() {    
     return (
@@ -17,6 +31,7 @@ class App extends Component {
           <Greeting 
             title={this.title}></Greeting>
           <TestButton></TestButton>
+          <TestLabel></TestLabel>
         </div>
 
       </div>
