@@ -6,9 +6,16 @@ export class Greeting extends React.Component {
         title: PropTypes.string
     }
 
+    static defaultProps = {
+        subTitle: 'Hello World'
+    }
+
     render() {
         return (
-            <h1>{this.props.title}</h1>
+            <div>
+                <h1>{this.props.title}</h1>
+                <h3>{this.props.subTitle}</h3>
+            </div>
         )
     }
 }

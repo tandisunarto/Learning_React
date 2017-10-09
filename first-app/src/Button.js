@@ -1,8 +1,9 @@
 import React from 'react';
 
-const TestButton = () => {
+
+const TestButton = () => {    
     return (
-        <button>Test</button>
+        <button>Function Com Button</button>
     );
 }
 
