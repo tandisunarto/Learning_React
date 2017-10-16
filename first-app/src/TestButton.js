@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class TestButton extends React.Component {
 
@@ -6,7 +7,11 @@ class TestButton extends React.Component {
         counter: 0
     }
 
-    increment = () => {
+    static contextTypes = {
+        testLabel: PropTypes.string
+    }
+
+    increment = (e) => {
         this.setState(
             (prevState) => {
                 return {
@@ -16,7 +21,8 @@ class TestButton extends React.Component {
         )
     }
 
-    decrement = () => {
+    decrement = (e) => {
+        console.log(e.nativeEvent);
         this.setState(
             (prevState) => {
                 return {
@@ -36,6 +42,7 @@ class TestButton extends React.Component {
                     <button onClick={this.increment}>+</button>
                     <button onClick={this.decrement}>-</button>
                 </div>
+                <div className="Blue-Font">{this.context.testLabel}</div>
             </div>
         )
     }
