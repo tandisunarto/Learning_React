@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import TestButton from './TestButton';
-import { TestLabel } from './TestLabel';
+import { TestLabel, LoginForm } from './TestLabel';
 import { Greeting } from './Greeting';
 import PropTypes from '../node_modules/prop-types/prop-types';
 
@@ -32,6 +32,7 @@ class App extends Component {
             title={this.title}></Greeting>
           <TestButton></TestButton>
           <TestLabel></TestLabel>
+          <LoginForm></LoginForm>
         </div>
 
       </div>

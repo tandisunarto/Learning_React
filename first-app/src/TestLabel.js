@@ -7,6 +7,51 @@ const TestLabel = (props) => {
         , "Washington DC")
 }
 
+class LoginForm extends React.Component {
+    state = {
+        fields: {
+            userid: ''
+        },
+        fieldErrors: ''
+    }
+
+    onInputChange = (e) => {    
+
+        this.setState({
+            fields: {
+                userid: e.target.value
+            }
+        });
+
+        this.validate();
+    }
+
+    validate() {
+        if (this.state.fields.userid.length > 0 && this.state.fields.userid.length < 4) {
+            this.setState({
+                fieldErrors: 'userid must be longer than 4'
+            })
+        } else {
+            this.setState({
+                fieldErrors: ''
+            })
+        }
+    }
+
+    render() {
+        return (
+            <div>
+                <div className="Red-Font">
+                    Userid: 
+                    <input type="text" value={this.state.fields.userid} onChange={this.onInputChange}></input>
+                </div>
+                <span style={{color: 'red'}}>{this.state.fieldErrors}</span>
+            </div>
+        )
+    }
+}
+
 export {
     TestLabel,
+    LoginForm
 };
