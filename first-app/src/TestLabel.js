@@ -16,16 +16,15 @@ class LoginForm extends React.Component {
     }
 
     onInputChange = (e) => {    
-        
-        const val = e.target.value;        
+
+        const updatedFields = this.state.fields;
+        updatedFields[e.target.name] = e.target.value;
 
         this.setState(
-            (prevState, props) => {
+            (prevState, props) => {                
                 return {
-                    fields: {
-                        userid : val
-                    }
-                }                
+                    fields: updatedFields
+                }
             },
             () => {
                 this.validate();
@@ -50,7 +49,7 @@ class LoginForm extends React.Component {
             <div>
                 <div className="Red-Font">
                     Userid: 
-                    <input type="text" value={this.state.fields.userid} onChange={this.onInputChange}></input>
+                    <input type="text" name="userid" value={this.state.fields.userid} onChange={this.onInputChange}></input>
                 </div>
                 <span style={{color: 'red'}}>{this.state.fieldErrors}</span>
             </div>
