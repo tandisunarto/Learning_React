@@ -16,19 +16,26 @@ class LoginForm extends React.Component {
     }
 
     onInputChange = (e) => {    
+        
+        const val = e.target.value;        
 
-        this.setState({
-            fields: {
-                userid: e.target.value
+        this.setState(
+            (prevState, props) => {
+                return {
+                    fields: {
+                        userid : val
+                    }
+                }                
+            },
+            () => {
+                this.validate();
             }
-        });
-
-        this.validate();
+        )        
     }
 
     validate() {
         if (this.state.fields.userid.length > 0 && this.state.fields.userid.length < 4) {
-            this.setState({
+            this.setState({                
                 fieldErrors: 'userid must be longer than 4'
             })
         } else {
