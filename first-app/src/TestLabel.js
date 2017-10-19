@@ -46,13 +46,19 @@ class LoginForm extends React.Component {
 
     render() {
         return (
-            <div>
-                <div className="Red-Font">
-                    Userid: 
-                    <input type="text" name="userid" value={this.state.fields.userid} onChange={this.onInputChange}></input>
-                </div>
-                <span style={{color: 'red'}}>{this.state.fieldErrors}</span>
+        <div>
+            <div className="Red-Font">
+                Userid: 
+                <input 
+                    type="text"
+                    name="userid" 
+                    value={this.state.fields.userid} 
+                    onChange={this.onInputChange}>
+                </input>
             </div>
+            <span style={{color: 'red'}}>{this.state.fieldErrors}</span>
+            {React.createElement("h1", {style:{color: "yellow", backgroundColor: "blue"}}, "Hellooooooo")}
+        </div>
         )
     }
 }
