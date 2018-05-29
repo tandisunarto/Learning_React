@@ -1,36 +1,58 @@
 import * as React from 'react';
 import './App.css';
-import { inc, dec, reducer } from "./BasicReducer";
 import Button from 'material-ui/Button';
+
+import { inc, dec } from "./BasicReducer";
+
+import { Home1, Home2 } from "./Home/index";  // use barrel file index.tsx
+
+import { AppStore } from './AppStore';
 
 class App extends React.Component {
 
+  readonly store = new AppStore();
+
+  state = {
+    number: this.store.getState().number
+  };
+
   constructor(props: any) {
     super(props);
-   
-    const r1 = reducer(10, inc);
-    const r2 = reducer(10, dec);
+  }
+  
+  handleIncrement = () => {
+    this.store.dispatch(inc);
+    this.setState({
+      number: this.store.getState().number
+    })
+  }
 
-    console.log("r1 = " + r1 + " ... r2 = " + r2);
+  handleDecrement = () => {
+    this.store.dispatch(dec);
+    this.setState({
+      number: this.store.getState().number
+    })
   }
 
   public render() {
     return (
       <div className="App">
         <header className="App-header">
-          <h1 className="App-title">Welcome to React</h1>
+          <h1 className="App-title">Welcome to React</h1>          
         </header>
-        <p className="App-intro">
+        <Home1 />
+        <Home2 />
+        <div className="App-intro">
           <div>
-            <Button variant="raised">0</Button>
+            <Button variant="raised">{this.state.number}</Button>
           </div>
           <div>
-            <Button variant="raised">+</Button>
+            <Button variant="raised" onClick={this.handleIncrement} >+</Button>
           </div>
           <div>
-            <Button variant="raised">-</Button>
+            <Button variant="raised" onClick={this.handleDecrement}>-</Button>
           </div>
-        </p>
+        </div>
       </div>
     );
   }
