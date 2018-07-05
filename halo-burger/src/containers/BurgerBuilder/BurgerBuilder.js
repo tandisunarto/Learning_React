@@ -23,7 +23,8 @@ class BurgerBuilder extends Component {
             meat: 0
         },
         totalPrice: 4,
-        canOrderNow: false
+        canOrderNow: false,
+        ordering: false
     }
 
     updateCanOrderNow(updatedIngredients) {
@@ -64,13 +65,30 @@ class BurgerBuilder extends Component {
                 ...this.state.ingredients
             };
             updatedIngredients[type] = newQty;
-            let newTotalPrice = this.state.totalPrice - INGREDIENT_COST[type];
-            this.setState({
-                totalPrice: newTotalPrice,
-                ingredients: updatedIngredients
+            this.setState((prevState, props) => {
+                return { 
+                    totalPrice: prevState.totalPrice - INGREDIENT_COST[type],
+                    ingredients: updatedIngredients
+                }
             })
             this.updateCanOrderNow(updatedIngredients);
         }
+    }
+
+    orderedHander = () => {
+        this.setState({
+            ordering: true
+        })
+    }
+
+    orderCancelHandler = () => {
+        this.setState({
+            ordering: false
+        })
+    }
+
+    orderContinueHandler = () => {
+        alert('Contine');
     }
 
     render() {
@@ -82,8 +100,11 @@ class BurgerBuilder extends Component {
 
         return ( 
         <Aux>
-            <Modal>
-                <OrderSummary ingredients={this.state.ingredients}/>
+            <Modal show={this.state.ordering} modalClosed={this.orderCancelHandler}>
+                <OrderSummary
+                    orderCancel={this.orderCancelHandler}
+                    orderContinue={this.orderContinueHandler} 
+                    ingredients={this.state.ingredients}/>
             </Modal>
             <Burger ingredients={this.state.ingredients} />
             <BuildControls 
@@ -92,6 +113,7 @@ class BurgerBuilder extends Component {
                 disabled={disabledInfo}
                 canOrderNow={this.state.canOrderNow}
                 price={this.state.totalPrice}
+                ordered={this.orderedHander}
             />
         </Aux>
         )
