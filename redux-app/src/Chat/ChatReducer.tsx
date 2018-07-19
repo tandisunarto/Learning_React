@@ -1,13 +1,31 @@
-function ChatReducer(state: any, action: any) {
-   if (action.type === CHAT_ACTION_TYPE.ADD_MESSAGE) {
-      return {
-         messages: state.messages.concat(action.message)
-      }
-   } else if (action.type === CHAT_ACTION_TYPE.DELETE_MESSAGE) {
+import { ACTIONS } from './ChatActionEnum';
 
-   } else {
-      return state;
-   }
+const initialState = {
+    messages: []
+}
+
+const ChatReducer = (state: any = initialState, action: any) => {    
+    
+    switch (action.type) {
+        case ACTIONS.ADD_MESSAGE: {
+            return {
+                messages: state.messages.concat(action.message)
+            }
+        }
+        case ACTIONS.DELETE_MESSAGE: {
+            return {
+                messages: [
+                    ...state.messages.slice(0, action.index),
+                    ...state.messages.slice(
+                        action.index + 1, state.messages.length
+                    ),
+                ],
+            };
+        }
+        default: {
+            return state;
+        }
+    }
 }
 
 export { ChatReducer };
