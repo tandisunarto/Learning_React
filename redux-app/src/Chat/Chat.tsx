@@ -2,45 +2,52 @@ import * as React from 'react';
 import MessageView from './MessageView';
 import MessageInput from './MessageInput';
 
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import { ChatReducer } from './ChatReducer';
-
+import { connect } from 'react-redux';
 import { ACTIONS } from './ChatActionEnum';
 
-const store = createStore(ChatReducer);
+interface IChatProps {
+    messages: any,
+    onAddMessage: any,
+    onDeleteMessage: any
+}
 
-class Chat extends React.Component {
-
-    componentDidMount() {
-        store.subscribe(() => this.forceUpdate());
-    }
+class Chat extends React.Component<IChatProps> {
 
     submitHandler = (message: string) => {
-        store.dispatch({
-            type: ACTIONS.ADD_MESSAGE,
-            message: message,
-        });        
+        this.props.onAddMessage(message);
     }
 
     deleteHandler = (index: number) => {
-        store.dispatch({
-            type: ACTIONS.DELETE_MESSAGE,
-            index: index,
-        });
+        this.props.onDeleteMessage(index);
     }
 
-    render() {        
-        const messages = store.getState().messages;
+    render() {
         return (
-            <Provider store={store}>
-                <div className='ui segment'>
-                    <MessageView delete={this.deleteHandler} messages={messages} />
-                    <MessageInput submit={this.submitHandler} />
-                </div>
-            </Provider>
+            <div className='ui segment'>
+                <MessageView delete={this.deleteHandler} messages={this.props.messages} />
+                <MessageInput submit={this.submitHandler} />
+            </div>
         );
     }
 }
 
-export default Chat;
+const mapStateToProps = (state: any) => {
+    return {
+        messages: state.messages
+    }
+};
+
+const mapDispatchToProps = (dispatch: any) => {
+    return {
+        onAddMessage: (message: string) => dispatch({
+            type: ACTIONS.ADD_MESSAGE,
+            message: message,
+        }),
+        onDeleteMessage: (index: number) => dispatch({
+            type: ACTIONS.DELETE_MESSAGE,
+            index: index,
+        })
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Chat);
