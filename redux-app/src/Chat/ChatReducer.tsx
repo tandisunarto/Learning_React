@@ -16,15 +16,16 @@ const ChatReducer = (state: any = initialState, action: any) => {
         case ACTIONS.DELETE_MESSAGE: {
             // state.messages.splice(action.index, 1);
             const updatedMessages = state.messages.filter((el: any,i: number) => {
-                i !== action.index;
+                return i !== action.index;
             });
+            console.log(updatedMessages);
             return {
-                messages: [
-                    ...updatedMessages
-                    // ...state.messages
-                    // ...state.messages.slice(0, action.index),
-                    // ...state.messages.slice(action.index + 1, state.messages.length),
-                ],
+                messages: updatedMessages
+                // messages: [
+                //     // ...state.messages
+                //     // ...state.messages.slice(0, action.index),
+                //     // ...state.messages.slice(action.index + 1, state.messages.length),
+                // ],
             };
         }
         default: {

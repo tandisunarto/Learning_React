@@ -1,9 +1,6 @@
 import * as React from 'react';
 import './App.css';
-import { inc, dec } from "./BasicReducer";
 import { Home1, Home2 } from "./Home/index";  // use barrel file index.tsx
-import { AppStore } from './AppStore';
-
 import Chat from './Chat/Chat';
 import ChatFooter from './Chat/ChatFooter';
 import Counter from './Counter/Counter';
