@@ -1,8 +1,10 @@
 import * as React from 'react';
 import Button from 'material-ui/Button';
 
+import { connect } from 'react-redux'
 
 class Counter extends React.Component {
+
     incrementHandler = () => {
 
     }
@@ -28,4 +30,11 @@ class Counter extends React.Component {
     }
 }
 
-export default Counter
+const mapStateToProps = (state: any) => {
+}
+
+const mapDispatchToProps = (dispatch: any) => {
+
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Counter);
