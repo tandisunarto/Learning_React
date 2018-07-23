@@ -7,4 +7,4 @@ const rootReducers = combineReducers({
     chat: ChatReducer
 })
 
-export default rootReducers;
+export { rootReducers };
