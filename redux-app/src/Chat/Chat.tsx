@@ -33,7 +33,7 @@ class Chat extends React.Component<IChatProps> {
 
 const mapStateToProps = (state: any) => {
     return {
-        messages: state.messages
+        messages: state.chat.messages
     }
 };
 

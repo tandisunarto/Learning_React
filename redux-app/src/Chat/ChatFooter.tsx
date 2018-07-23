@@ -12,7 +12,7 @@ const chatfooter = (props: any) => {
 
 const mapStateToProps = (state: any) => {
     return {
-        messages: state.messages
+        messages: state.chat.messages
     }
 }
 

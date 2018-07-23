@@ -3,24 +3,30 @@ import Button from 'material-ui/Button';
 
 import { connect } from 'react-redux'
 
-class Counter extends React.Component {
+interface ICounterProps {
+    counter: number,
+    onIncrement: any,
+    onDecrement: any
+}
+
+class Counter extends React.Component<ICounterProps> {
 
     incrementHandler = () => {
-
+        this.props.onIncrement();
     }
 
     decrementHandler = () => {
-
+        this.props.onDecrement();
     }
 
     render() {
         return (
             <div>
                 <div>
-                    <Button variant="raised">{}</Button>
+                    <Button variant="raised">{this.props.counter}</Button>
                 </div>
                 <div>
-                    <Button variant="raised" onClick={this.incrementHandler} >+</Button>
+                    <Button variant="raised" onClick={this.incrementHandler}>+</Button>
                 </div>
                 <div>
                     <Button variant="raised" onClick={this.decrementHandler}>-</Button>
@@ -31,10 +37,22 @@ class Counter extends React.Component {
 }
 
 const mapStateToProps = (state: any) => {
+    return {
+        counter: state.counter.counter
+    }
 }
 
 const mapDispatchToProps = (dispatch: any) => {
-
+    return {
+        onIncrement: (value: number) => dispatch({
+            type: "INC",
+            value: value
+        }),
+        onDecrement: (value: number) => dispatch({
+            type: "DEC",
+            value: value
+        })
+    }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Counter);

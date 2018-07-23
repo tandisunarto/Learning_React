@@ -1,11 +1,10 @@
-import { ACTIONS } from './ChatActionEnum';
+import { ACTIONS } from '../Chat/ChatActionEnum';
 
 const initialState = {
     messages: []
 }
 
 const ChatReducer = (state: any = initialState, action: any) => {    
-    
     switch (action.type) {
         case ACTIONS.ADD_MESSAGE: {
             return {
@@ -14,18 +13,11 @@ const ChatReducer = (state: any = initialState, action: any) => {
             }
         }
         case ACTIONS.DELETE_MESSAGE: {
-            // state.messages.splice(action.index, 1);
             const updatedMessages = state.messages.filter((el: any,i: number) => {
                 return i !== action.index;
             });
-            console.log(updatedMessages);
             return {
                 messages: updatedMessages
-                // messages: [
-                //     // ...state.messages
-                //     // ...state.messages.slice(0, action.index),
-                //     // ...state.messages.slice(action.index + 1, state.messages.length),
-                // ],
             };
         }
         default: {

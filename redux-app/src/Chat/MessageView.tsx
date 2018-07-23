@@ -2,7 +2,7 @@ import * as React from 'react';
 
 export interface IMessageViewProps {
     messages: any,
-    delete: any
+    delete: any,
 }
 
 export interface IAppState {

@@ -6,9 +6,9 @@ import registerServiceWorker from './registerServiceWorker';
 
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-import { ChatReducer } from './Chat/ChatReducer';
+import RootReducer from './Reducers/RootReducer';
 
-const store = createStore(ChatReducer);
+const store = createStore(RootReducer);
 
 ReactDOM.render(
   <Provider store={store}>
