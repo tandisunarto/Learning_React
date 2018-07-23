@@ -1,5 +1,0 @@
-enum ACTIONS { ADD_MESSAGE, DELETE_MESSAGE };
-
-export {
-    ACTIONS
-}

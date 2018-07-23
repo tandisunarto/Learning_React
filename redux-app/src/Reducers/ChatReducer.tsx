@@ -1,4 +1,4 @@
-import { ACTIONS } from '../Chat/ChatActionEnum';
+import { ACTIONS } from './ActionEnum';
 
 const initialState = {
     messages: []

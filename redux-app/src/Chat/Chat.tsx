@@ -3,7 +3,7 @@ import MessageView from './MessageView';
 import MessageInput from './MessageInput';
 
 import { connect } from 'react-redux';
-import { ACTIONS } from './ChatActionEnum';
+import { ACTIONS } from '../Reducers/ActionEnum';
 
 interface IChatProps {
     messages: any,

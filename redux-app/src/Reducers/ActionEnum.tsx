@@ -1,0 +1,10 @@
+enum ACTIONS { 
+    ADD_MESSAGE, 
+    DELETE_MESSAGE,
+    INC_COUNTER,
+    DEC_COUNTER
+};
+
+export {
+    ACTIONS
+}

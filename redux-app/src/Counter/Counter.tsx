@@ -1,6 +1,8 @@
 import * as React from 'react';
 import Button from 'material-ui/Button';
 
+import { ACTIONS } from '../Reducers/ActionEnum';
+
 import { connect } from 'react-redux'
 
 interface ICounterProps {
@@ -45,11 +47,11 @@ const mapStateToProps = (state: any) => {
 const mapDispatchToProps = (dispatch: any) => {
     return {
         onIncrement: (value: number) => dispatch({
-            type: "INC",
+            type: ACTIONS.INC_COUNTER,
             value: value
         }),
         onDecrement: (value: number) => dispatch({
-            type: "DEC",
+            type: ACTIONS.DEC_COUNTER,
             value: value
         })
     }
