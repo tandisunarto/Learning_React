@@ -7,12 +7,12 @@ const reducer = (state: any = initialState, action: any) => {
    switch (action.type) {
       case "INC": {
          return {
-            counter: state.counter.counter + action.value
+            counter: state.counter + action.value
          }
       }
       case "DEC": {
          return {
-            counter: state.counter.counter - action.value
+            counter: state.counter - action.value
          }
       }
       default: {

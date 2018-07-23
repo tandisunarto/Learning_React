@@ -3,7 +3,7 @@ import CounterReducer from "./CounterReducer";
 import { ChatReducer } from "./ChatReducer";
 
 const rootReducers = combineReducers({
-    counter: CounterReducer,
+    ctr: CounterReducer,
     chat: ChatReducer
 })
 

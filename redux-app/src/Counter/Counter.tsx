@@ -12,11 +12,11 @@ interface ICounterProps {
 class Counter extends React.Component<ICounterProps> {
 
     incrementHandler = () => {
-        this.props.onIncrement();
+        this.props.onIncrement(1);
     }
 
     decrementHandler = () => {
-        this.props.onDecrement();
+        this.props.onDecrement(1);
     }
 
     render() {
@@ -38,7 +38,7 @@ class Counter extends React.Component<ICounterProps> {
 
 const mapStateToProps = (state: any) => {
     return {
-        counter: state.counter.counter
+        counter: state.ctr.counter
     }
 }
 
