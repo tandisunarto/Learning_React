@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import * as actionTypes from '../../store/actions';
 
-import Aux from '../../hoc/Aux/Aux';
+import Aux from '../../hoc/Auxilary/Auxilary';
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 import Modal from '../../components/UI/Modal/Modal';
