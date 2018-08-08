@@ -17,8 +17,13 @@ const styles = theme => ({
         width: 40,
         height: 40,
     },
-    zone: {
-        // cursor: 'pointer',
+    cellEnemy: {
+        backgroundColor: '#E0F0A5FF', 
+        width: 40, 
+        height: 40,
+        padding: 0
+    },
+    cell: {
         backgroundColor: '#DDEEFFFF', 
         width: 40, 
         height: 40,
@@ -26,10 +31,11 @@ const styles = theme => ({
     }
 });
 
-class Zone extends React.Component {
+class ZoneCell extends React.Component {
 
-    gridClickHandler = () => {
-        console.log("test");
+    zoneClickHandler = (e)=> {
+        let codes = e.currentTarget.id.split(':');
+        console.log(codes);
     }
 
     render() {
@@ -37,17 +43,17 @@ class Zone extends React.Component {
 
         return (
             <Grid item>
-            <Paper className={classes.paper}>
-                <Button variant="fab" className={classes.zone}>{this.props.row}:{this.props.col}</Button>
-                {/* <div onClick={this.gridClickHandler} className={classes.zone}>{this.props.side}-{this.props.row}:{this.props.col}</div> */}
-            </Paper>
+                <Paper className={classes.paper}>
+                    <Button variant="fab" id={this.props.side + ':' + this.props.row + ':' + this.props.col} 
+                        onClick={this.zoneClickHandler} className={this.props.side === 1 ? classes.cellEnemy : classes.cell}>{this.props.row}:{this.props.col}</Button>
+                    </Paper>
             </Grid>
         )
     }
 }
 
-Zone.propTypes = {
+ZoneCell.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Zone);
+export default withStyles(styles)(ZoneCell);
