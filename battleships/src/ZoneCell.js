@@ -4,51 +4,71 @@ import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
+import styles from'./ZoneCellStyles';
+import { connect } from 'react-redux';
 
-const styles = theme => ({
-    root: {
-        flexGrow: 1,
-    },
-    paper: {
-        // padding: theme.spacing.unit,
-        padding: 1,
-        textAlign: 'center',
-        color: theme.palette.text.secondary,
-        width: 40,
-        height: 40,
-    },
-    cellEnemy: {
-        backgroundColor: '#E0F0A5FF', 
-        width: 40, 
-        height: 40,
-        padding: 0
-    },
-    cell: {
-        backgroundColor: '#DDEEFFFF', 
-        width: 40, 
-        height: 40,
-        padding: 0
-    }
-});
+import BATTLE_ACTIONS from './store/BattleAction';
 
 class ZoneCell extends React.Component {
 
     zoneClickHandler = (e)=> {
-        let codes = e.currentTarget.id.split(':');
-        console.log(codes);
+        if (this.props.side === 'Enemy') {
+            let coord = {
+                row: this.props.row,
+                col: this.props.col
+            };
+            // let before = this.props.zones[this.props.row][this.props.col];
+            this.props.onAttack(coord);
+            // let after = this.props.zones[this.props.row][this.props.col];
+
+            // if (before !== after) {
+            //     this.setState();
+            // }
+        }
     }
 
-    render() {
+    cellStyle = (row, col) => {
         const { classes } = this.props;
+        return (this.props.zones[this.props.row][this.props.col] === 'W' ? 
+            (this.props.side === 'Enemy' ? classes.enemyCell : classes.homeCell) : 
+            this.props.zones[this.props.row][this.props.col] === 'S' ? classes.shipCell :
+            this.props.zones[this.props.row][this.props.col] === 'H' ? classes.hitCell : classes.missedCell)
+    };
 
-        return (
+    render() {
+
+        const { classes } = this.props;
+        const classStyle = (
+            classes.cell + ' ' + this.cellStyle(this.props.row, this.props.col)
+        );
+
+        console.log('rendering view');
+
+        return (            
             <Grid item>
                 <Paper className={classes.paper}>
                     <Button variant="fab" id={this.props.side + ':' + this.props.row + ':' + this.props.col} 
-                        onClick={this.zoneClickHandler} className={this.props.side === 1 ? classes.cellEnemy : classes.cell}>{this.props.row}:{this.props.col}</Button>
-                    </Paper>
+                        onClick={this.zoneClickHandler} className={classStyle}>
+                        {this.props.zones[this.props.row][this.props.col]}
+                    </Button>
+                </Paper>
             </Grid>
         )
+    }
+}
+
+const mapPropsToState = (state) => {
+    return {
+        zones: state.zones
+    }
+}
+
+const mapDispatchToState = (dispatch) => {
+    return {
+        onAttack: (coord) => dispatch({
+            type: BATTLE_ACTIONS.ATTACK,
+            coord: coord
+        }),
     }
 }
 
@@ -56,4 +76,4 @@ ZoneCell.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(ZoneCell);
+export default withStyles(styles)(connect(mapPropsToState, mapDispatchToState)(ZoneCell));

@@ -31,11 +31,11 @@ class Arena extends React.Component {
 
         return (
             <Grid container className={classes.root} justify="center" spacing={32}>
-                {[0, 1].map((value, index) => (
+                {["Enemy", "Home"].map((value, index) => (
                 <Grid key={value} item>
                     <div className={classes.arena}>
                     {/* <Paper className={classes.paper}> */}
-                        <BattleZone side={index} />
+                        <BattleZone side={value} />
                     {/* </Paper> */}
                     </div>
                 </Grid>
