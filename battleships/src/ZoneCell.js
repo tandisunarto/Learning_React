@@ -11,7 +11,7 @@ import BATTLE_ACTIONS from './store/BattleAction';
 
 class ZoneCell extends React.Component {
 
-    zoneClickHandler = (e)=> {
+    attackHandler = (e)=> {
         if (this.props.side === 'Enemy') {
             let coord = {
                 row: this.props.row,
@@ -20,19 +20,16 @@ class ZoneCell extends React.Component {
             // let before = this.props.zones[this.props.row][this.props.col];
             this.props.onAttack(coord);
             // let after = this.props.zones[this.props.row][this.props.col];
-
-            // if (before !== after) {
-            //     this.setState();
-            // }
         }
     }
 
     cellStyle = (row, col) => {
         const { classes } = this.props;
-        return (this.props.zones[this.props.row][this.props.col] === 'W' ? 
+        let zone = this.props.side === 'Enemy' ? this.props.enemyZones : this.props.homeZones
+        return (zone[this.props.row][this.props.col] === 'W' ? 
             (this.props.side === 'Enemy' ? classes.enemyCell : classes.homeCell) : 
-            this.props.zones[this.props.row][this.props.col] === 'S' ? classes.shipCell :
-            this.props.zones[this.props.row][this.props.col] === 'H' ? classes.hitCell : classes.missedCell)
+            zone[this.props.row][this.props.col] === 'S' ? classes.shipCell :
+            zone[this.props.row][this.props.col] === 'H' ? classes.hitCell : classes.missedCell)
     };
 
     render() {
@@ -41,15 +38,16 @@ class ZoneCell extends React.Component {
         const classStyle = (
             classes.cell + ' ' + this.cellStyle(this.props.row, this.props.col)
         );
+        let zone = this.props.side === 'Enemy' ? this.props.enemyZones : this.props.homeZones
 
         console.log('rendering view');
 
-        return (            
+        return (
             <Grid item>
                 <Paper className={classes.paper}>
                     <Button variant="fab" id={this.props.side + ':' + this.props.row + ':' + this.props.col} 
-                        onClick={this.zoneClickHandler} className={classStyle}>
-                        {this.props.zones[this.props.row][this.props.col]}
+                        onClick={this.attackHandler} className={classStyle}>
+                        {zone[this.props.row][this.props.col]}
                     </Button>
                 </Paper>
             </Grid>
@@ -59,7 +57,8 @@ class ZoneCell extends React.Component {
 
 const mapPropsToState = (state) => {
     return {
-        zones: state.zones
+        enemyZones: state.enemyZones,
+        homeZones: state.homeZones
     }
 }
 

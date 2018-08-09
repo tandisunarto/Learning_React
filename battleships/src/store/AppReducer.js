@@ -6,7 +6,38 @@ import BATTLE_ACTIONS from './BattleAction';
 // M : miss
 
 const initialState = {
-    zones: InitZones()
+    enemyZones: InitZones(),
+    homeZones: InitZones()
+}
+
+function fakeEnemyZones() {
+    return [
+        ['Q','Q','Q','Q','Q','Q','Q','Q','Q','Q'],
+        ['Q','Q','Q','Q','Q','Q','Q','Q','Q','Q'],
+        ['Q','Q','Q','Q','Q','Q','Q','Q','Q','Q'],
+        ['Q','Q','Q','Q','Q','Q','Q','Q','Q','Q'],
+        ['Q','Q','Q','Q','Q','Q','Q','Q','Q','Q'],
+        ['Q','Q','Q','Q','Q','Q','Q','Q','Q','Q'],
+        ['Q','Q','Q','Q','Q','Q','Q','Q','Q','Q'],
+        ['Q','Q','Q','Q','Q','Q','Q','Q','Q','Q'],
+        ['Q','Q','Q','Q','Q','Q','Q','Q','Q','Q'],
+        ['Q','Q','Q','Q','Q','Q','Q','Q','Q','Q']
+    ]
+}
+
+function fakeHomeZones() {
+    return [
+        ['Z','Z','Z','Z','Z','Z','Z','Z','Z','Z'],
+        ['Z','Z','Z','Z','Z','Z','Z','Z','Z','Z'],
+        ['Z','Z','Z','Z','Z','Z','Z','Z','Z','Z'],
+        ['Z','Z','Z','Z','Z','Z','Z','Z','Z','Z'],
+        ['Z','Z','Z','Z','Z','Z','Z','Z','Z','Z'],
+        ['Z','Z','Z','Z','Z','Z','Z','Z','Z','Z'],
+        ['Z','Z','Z','Z','Z','Z','Z','Z','Z','Z'],
+        ['Z','Z','Z','Z','Z','Z','Z','Z','Z','Z'],
+        ['Z','Z','Z','Z','Z','Z','Z','Z','Z','Z'],
+        ['Z','Z','Z','Z','Z','Z','Z','Z','Z','Z']
+    ]
 }
 
 function InitZones() {
@@ -22,11 +53,12 @@ const appReducer = (state = initialState, action) => {
         case BATTLE_ACTIONS.ATTACK: {
             let coord = action.coord;
             let updatedZones = [
-                ...state.zones,
+                ...state.enemyZones,
             ]
             updatedZones[coord.row][coord.col] = 'M';
             return {
-                zones: updatedZones
+                enemyZones: updatedZones,
+                homeZones: state.homeZones
             }            
         }
         case BATTLE_ACTIONS.RESET: {
