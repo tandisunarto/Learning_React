@@ -1,7 +1,7 @@
-let temp = new Array(10).fill(0);
-temp = temp.map(t => {  
-    return new Array(10).fill('H');
-})
+let arr = [ 5, 7, 8];
 
-temp[4][4] = 'G';
-console.log(temp);
+console.log(arr);
+arr[1] = 10;
+console.log(arr);
+arr.splice(1, 1, 20);
+console.log(arr);

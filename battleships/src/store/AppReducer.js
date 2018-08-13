@@ -7,45 +7,17 @@ import BATTLE_ACTIONS from './BattleAction';
 
 const initialState = {
     enemyZones: InitZones(),
-    homeZones: InitZones()
-}
-
-function fakeEnemyZones() {
-    return [
-        ['Q','Q','Q','Q','Q','Q','Q','Q','Q','Q'],
-        ['Q','Q','Q','Q','Q','Q','Q','Q','Q','Q'],
-        ['Q','Q','Q','Q','Q','Q','Q','Q','Q','Q'],
-        ['Q','Q','Q','Q','Q','Q','Q','Q','Q','Q'],
-        ['Q','Q','Q','Q','Q','Q','Q','Q','Q','Q'],
-        ['Q','Q','Q','Q','Q','Q','Q','Q','Q','Q'],
-        ['Q','Q','Q','Q','Q','Q','Q','Q','Q','Q'],
-        ['Q','Q','Q','Q','Q','Q','Q','Q','Q','Q'],
-        ['Q','Q','Q','Q','Q','Q','Q','Q','Q','Q'],
-        ['Q','Q','Q','Q','Q','Q','Q','Q','Q','Q']
-    ]
-}
-
-function fakeHomeZones() {
-    return [
-        ['Z','Z','Z','Z','Z','Z','Z','Z','Z','Z'],
-        ['Z','Z','Z','Z','Z','Z','Z','Z','Z','Z'],
-        ['Z','Z','Z','Z','Z','Z','Z','Z','Z','Z'],
-        ['Z','Z','Z','Z','Z','Z','Z','Z','Z','Z'],
-        ['Z','Z','Z','Z','Z','Z','Z','Z','Z','Z'],
-        ['Z','Z','Z','Z','Z','Z','Z','Z','Z','Z'],
-        ['Z','Z','Z','Z','Z','Z','Z','Z','Z','Z'],
-        ['Z','Z','Z','Z','Z','Z','Z','Z','Z','Z'],
-        ['Z','Z','Z','Z','Z','Z','Z','Z','Z','Z'],
-        ['Z','Z','Z','Z','Z','Z','Z','Z','Z','Z']
-    ]
+    homeZones: InitZones(),
+    enemyShipsSunk: 0,
+    homeShipsSunk: 0,
 }
 
 function InitZones() {
-    let zones = new Array(10).fill(0);
-    zones = zones.map(t => {  
+    let zone = new Array(10).fill(0);
+    zone = zone.map(t => {  
         return new Array(10).fill('W');
     })
-    return zones;
+    return zone;
 }
 
 const appReducer = (state = initialState, action) => {
@@ -59,13 +31,32 @@ const appReducer = (state = initialState, action) => {
             return {
                 enemyZones: updatedZones,
                 homeZones: state.homeZones
-            }            
+            }
         }
         case BATTLE_ACTIONS.RESET: {
-            state.zones = InitZones();            
+            return {
+                enemyZones: InitZones(),
+                homeZones: InitZones()
+            }
         }
-        default:
+        case BATTLE_ACTIONS.ENEMY_ZONE: {
+            return {
+                enemyZones: action.zone,
+                homeZones: state.homeZones
+            }
+        }
+        case BATTLE_ACTIONS.HOME_ZONE: {
+
+        }
+        case BATTLE_ACTIONS.ENEMY_CELL: {
+
+        }
+        case BATTLE_ACTIONS.HOME_CELL: {
+
+        }
+        default: {
             return state;
+        }
     }    
 }
 

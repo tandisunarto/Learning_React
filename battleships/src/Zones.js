@@ -21,10 +21,9 @@ const styles = theme => ({
     }
 });
 
-class BattleZone extends React.Component {
+class Zones extends React.Component {
 
     componentDidMount() {
-        
     }
   
     render() {
@@ -39,8 +38,8 @@ class BattleZone extends React.Component {
     }
 }
 
-BattleZone.propTypes = {
+Zones.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(BattleZone);
+export default withStyles(styles)(Zones);
