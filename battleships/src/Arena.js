@@ -35,30 +35,33 @@ class Arena extends React.Component {
         spacing: '16',
     };
 
-    componentWillMount() {
+    constructor(props) {
+        super(props);
         this.initArena();
     }
     
     playAgainHandler = () => {
-        this.props.onPlayAgain();
         this.initArena();
     }
 
     initArena = () => {
         let zones = {};
+        this.props.onResetZones();
         sides.forEach(side => {
-            let zone = side === "Enemy" ? this.props.enemyZones : this.props.homeZones;
-            GenerateShips(zone);
+            let zone = (side === "Enemy") ? this.props.enemyZones : this.props.homeZones;
+            let updatedZone = GenerateShips(zone);
+
             if (side === "Enemy") 
-                zones.enemyZones = this.props.enemyZones;
+                zones.enemyZones = updatedZone;
             else
-                zones.homeZones = this.props.homeZones;
+                zones.homeZones = updatedZone;            
         })
-        this.props.onSetZone(zones);
+        console.log(zones);        
+        this.props.onSetZones(zones);
     }
 
     render() {
-        const { classes } = this.props;
+        const { classes } = this.props;        
 
         return (
             <React.Fragment>
@@ -94,14 +97,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onPlayAgain: () => dispatch({
+        onResetZones: () => dispatch({
             type: BATTLE_ACTIONS.RESET
         }),
-        // onSetZone: (side, zone) => dispatch({
-        //     type: (side === "Enemy" ? BATTLE_ACTIONS.SET_ENEMY_ZONE : BATTLE_ACTIONS.SET_HOME_ZONE),
-        //     zone: zone
-        // })
-        onSetZone: (zones) => dispatch({
+        onSetZones: (zones) => dispatch({
             type: BATTLE_ACTIONS.SET_ZONES,
             zones: zones
         })

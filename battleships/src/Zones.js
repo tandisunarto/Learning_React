@@ -23,7 +23,7 @@ const styles = theme => ({
 
 class Zones extends React.Component {
       
-    render() {
+    render() {        
         const { classes } = this.props;
         return (            
             <Grid container direction={"row"} justify={"center"} style={{height: '100%', width: '100%'}} >

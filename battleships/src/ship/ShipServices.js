@@ -2,8 +2,9 @@ import Ships from './Ships';
 
 const GenerateShips = (zone) => {
    Ships.forEach(ship => {
-      PlaceShipInZone(ship, zone);
+      zone = PlaceShipInZone(ship, zone);
    });
+   return zone;
 }
 
 const PlaceShipInZone = (ship, zone) => {
@@ -28,12 +29,17 @@ const PlaceShipInZone = (ship, zone) => {
 
    // console.log(ship, row, col, orientation);
    for (let i = 0; i < ship.length; i++) {
-      zone[row][col].status = "S";
-      zone[row][col].orientation = orientation;
-      zone[row][col].index = i + 1;
-      zone[row][col].length = ship.length;
+      zone[row][col] = {
+         status: "S",
+         orientation: orientation,
+         index: i + 1,
+         length: ship.length
+      }
+
       orientation === "H" ? col++ : row++;
-   }   
+   }
+
+   return zone;
 }
 
 const GetStartPos = (length) => {

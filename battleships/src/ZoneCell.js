@@ -17,9 +17,7 @@ class ZoneCell extends React.Component {
                 row: this.props.row,
                 col: this.props.col
             };
-            // let before = this.props.zones[this.props.row][this.props.col];
             this.props.onAttack(coord);
-            // let after = this.props.zones[this.props.row][this.props.col];
         }
     }
 
@@ -33,6 +31,8 @@ class ZoneCell extends React.Component {
     };
 
     render() {
+
+        console.log("render zone cell");
 
         const { classes } = this.props;
         const classStyle = (
