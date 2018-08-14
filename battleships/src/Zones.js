@@ -22,9 +22,6 @@ const styles = theme => ({
 });
 
 class Zones extends React.Component {
-
-    componentDidMount() {
-    }
   
     render() {
         const { classes } = this.props;

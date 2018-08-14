@@ -26,10 +26,10 @@ class ZoneCell extends React.Component {
     cellStyle = (row, col) => {
         const { classes } = this.props;
         let zone = this.props.side === 'Enemy' ? this.props.enemyZones : this.props.homeZones
-        return (zone[this.props.row][this.props.col] === 'W' ? 
+        return (zone[this.props.row][this.props.col].status === 'W' ? 
             (this.props.side === 'Enemy' ? classes.enemyCell : classes.homeCell) : 
-            zone[this.props.row][this.props.col] === 'S' ? classes.shipCell :
-            zone[this.props.row][this.props.col] === 'H' ? classes.hitCell : classes.missedCell)
+            zone[this.props.row][this.props.col].status === 'S' ? classes.shipCell :
+            zone[this.props.row][this.props.col].status === 'H' ? classes.hitCell : classes.missedCell)
     };
 
     render() {
@@ -40,14 +40,14 @@ class ZoneCell extends React.Component {
         );
         let zone = this.props.side === 'Enemy' ? this.props.enemyZones : this.props.homeZones
 
-        console.log('rendering view');
+        console.log("Render Cell");
 
         return (
             <Grid item>
                 <Paper className={classes.paper}>
                     <Button variant="fab" id={this.props.side + ':' + this.props.row + ':' + this.props.col} 
                         onClick={this.attackHandler} className={classStyle}>
-                        {zone[this.props.row][this.props.col]}
+                        {zone[this.props.row][this.props.col].status}
                     </Button>
                 </Paper>
             </Grid>

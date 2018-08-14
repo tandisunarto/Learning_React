@@ -15,7 +15,15 @@ const initialState = {
 function InitZones() {
     let zone = new Array(10).fill(0);
     zone = zone.map(t => {  
-        return new Array(10).fill('W');
+        let row = new Array(10).fill({}).map(() =>{
+            return {
+                status: 'W',
+                orientation: '',
+                length: 0,
+                index: 0
+            }
+        })
+        return row;
     })
     return zone;
 }
@@ -27,7 +35,7 @@ const appReducer = (state = initialState, action) => {
             let updatedZones = [
                 ...state.enemyZones,
             ]
-            updatedZones[coord.row][coord.col] = 'M';
+            updatedZones[coord.row][coord.col].status = 'M';
             return {
                 enemyZones: updatedZones,
                 homeZones: state.homeZones
@@ -39,20 +47,23 @@ const appReducer = (state = initialState, action) => {
                 homeZones: InitZones()
             }
         }
-        case BATTLE_ACTIONS.ENEMY_ZONE: {
+        case BATTLE_ACTIONS.SET_ENEMY_ZONE: {
             return {
                 enemyZones: action.zone,
                 homeZones: state.homeZones
             }
         }
-        case BATTLE_ACTIONS.HOME_ZONE: {
-
+        case BATTLE_ACTIONS.SET_HOME_ZONE: {
+            return {
+                enemyZones: state.enemyZones,
+                homeZones: action.zone
+            }
         }
         case BATTLE_ACTIONS.ENEMY_CELL: {
-
+            break;
         }
         case BATTLE_ACTIONS.HOME_CELL: {
-
+            break;
         }
         default: {
             return state;
