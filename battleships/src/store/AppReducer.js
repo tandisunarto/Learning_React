@@ -47,16 +47,10 @@ const appReducer = (state = initialState, action) => {
                 homeZones: InitZones()
             }
         }
-        case BATTLE_ACTIONS.SET_ENEMY_ZONE: {
+        case BATTLE_ACTIONS.SET_ZONES: {
             return {
-                enemyZones: action.zone,
-                homeZones: state.homeZones
-            }
-        }
-        case BATTLE_ACTIONS.SET_HOME_ZONE: {
-            return {
-                enemyZones: state.enemyZones,
-                homeZones: action.zone
+                enemyZones: action.zones.enemyZones,
+                homeZones: action.zones.homeZones
             }
         }
         case BATTLE_ACTIONS.ENEMY_CELL: {

@@ -23,31 +23,31 @@ class ZoneCell extends React.Component {
         }
     }
 
-    cellStyle = (row, col) => {
+    cellStyle = (side, row, col) => {
         const { classes } = this.props;
-        let zone = this.props.side === 'Enemy' ? this.props.enemyZones : this.props.homeZones
-        return (zone[this.props.row][this.props.col].status === 'W' ? 
-            (this.props.side === 'Enemy' ? classes.enemyCell : classes.homeCell) : 
-            zone[this.props.row][this.props.col].status === 'S' ? classes.shipCell :
-            zone[this.props.row][this.props.col].status === 'H' ? classes.hitCell : classes.missedCell)
+        let zone = side === 'Enemy' ? this.props.enemyZones : this.props.homeZones
+        return (zone[row][col].status === 'W' ? 
+            (side === 'Enemy' ? classes.enemyCell : classes.homeCell) : 
+            zone[row][col].status === 'S' ? classes.shipCell :
+            zone[row][col].status === 'H' ? classes.hitCell : classes.missedCell)
     };
 
     render() {
 
         const { classes } = this.props;
         const classStyle = (
-            classes.cell + ' ' + this.cellStyle(this.props.row, this.props.col)
+            classes.cell + ' ' + this.cellStyle(this.props.side, this.props.row, this.props.col)
         );
         let zone = this.props.side === 'Enemy' ? this.props.enemyZones : this.props.homeZones
-
-        console.log("Render Cell");
 
         return (
             <Grid item>
                 <Paper className={classes.paper}>
                     <Button variant="fab" id={this.props.side + ':' + this.props.row + ':' + this.props.col} 
                         onClick={this.attackHandler} className={classStyle}>
-                        {zone[this.props.row][this.props.col].status}
+                        {zone[this.props.row][this.props.col].status === "S" ? 
+                            zone[this.props.row][this.props.col].index + '/' + zone[this.props.row][this.props.col].length : "≈"}
+                            {/* (zone[this.props.row][this.props.col].orientation === "H" ? "—" : "|") : "≈"} */}
                     </Button>
                 </Paper>
             </Grid>

@@ -16,7 +16,7 @@ const styles = theme => ({
         padding: 0
     },
     shipCell: {
-        backgroundColor: '#57534B',
+        backgroundColor: '#91DBA0FF',
     },
     enemyCell: {
         backgroundColor: '#E0F0A5FF',
@@ -25,10 +25,10 @@ const styles = theme => ({
         backgroundColor: '#DDEEFFFF',
     },
     hitCell: {
-        backgroundColor: '#FF0000FF',
+        backgroundColor: '#F75E5EFF',
     },
     missedCell: {
-        backgroundColor: '#388EFFFF',
+        backgroundColor: '#6EDCfAFF',
     }
 });
 

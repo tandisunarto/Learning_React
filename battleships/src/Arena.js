@@ -45,11 +45,16 @@ class Arena extends React.Component {
     }
 
     initArena = () => {
+        let zones = {};
         sides.forEach(side => {
             let zone = side === "Enemy" ? this.props.enemyZones : this.props.homeZones;
-            GenerateShips(zone)
-            console.log(zone);
+            GenerateShips(zone);
+            if (side === "Enemy") 
+                zones.enemyZones = this.props.enemyZones;
+            else
+                zones.homeZones = this.props.homeZones;
         })
+        this.props.onSetZone(zones);
     }
 
     render() {
@@ -91,6 +96,14 @@ const mapDispatchToProps = (dispatch) => {
     return {
         onPlayAgain: () => dispatch({
             type: BATTLE_ACTIONS.RESET
+        }),
+        // onSetZone: (side, zone) => dispatch({
+        //     type: (side === "Enemy" ? BATTLE_ACTIONS.SET_ENEMY_ZONE : BATTLE_ACTIONS.SET_HOME_ZONE),
+        //     zone: zone
+        // })
+        onSetZone: (zones) => dispatch({
+            type: BATTLE_ACTIONS.SET_ZONES,
+            zones: zones
         })
     }
 }

@@ -26,15 +26,14 @@ const PlaceShipInZone = (ship, zone) => {
       } while (available === false)
    }
 
-   console.log(ship, row, col, orientation);
+   // console.log(ship, row, col, orientation);
    for (let i = 0; i < ship.length; i++) {
       zone[row][col].status = "S";
-
-      if (orientation === "H")
-         col++;
-      else
-         row++;
-   }
+      zone[row][col].orientation = orientation;
+      zone[row][col].index = i + 1;
+      zone[row][col].length = ship.length;
+      orientation === "H" ? col++ : row++;
+   }   
 }
 
 const GetStartPos = (length) => {
