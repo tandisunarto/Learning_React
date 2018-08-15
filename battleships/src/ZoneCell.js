@@ -23,7 +23,7 @@ class ZoneCell extends React.Component {
 
     cellStyle = (side, row, col) => {
         const { classes } = this.props;
-        let zone = side === 'Enemy' ? this.props.enemyZones : this.props.homeZones
+        let zone = side === 'Enemy' ? this.props.enemyZone : this.props.homeZone        
         return (zone[row][col].status === 'W' ? 
             (side === 'Enemy' ? classes.enemyCell : classes.homeCell) : 
             zone[row][col].status === 'S' ? classes.shipCell :
@@ -32,13 +32,11 @@ class ZoneCell extends React.Component {
 
     render() {
 
-        console.log("render zone cell");
-
         const { classes } = this.props;
         const classStyle = (
             classes.cell + ' ' + this.cellStyle(this.props.side, this.props.row, this.props.col)
         );
-        let zone = this.props.side === 'Enemy' ? this.props.enemyZones : this.props.homeZones
+        let zone = this.props.side === 'Enemy' ? this.props.enemyZone : this.props.homeZone
 
         return (
             <Grid item>
@@ -57,8 +55,8 @@ class ZoneCell extends React.Component {
 
 const mapPropsToState = (state) => {
     return {
-        enemyZones: state.enemyZones,
-        homeZones: state.homeZones
+        enemyZone: state.enemyZone,
+        homeZone: state.homeZone
     }
 }
 

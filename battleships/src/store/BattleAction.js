@@ -1,6 +1,6 @@
 const BATTLE_ACTIONS = {
     ATTACK: Symbol("attack"),
-    RESET: Symbol("reset"),
+    INIT_ZONES: Symbol("init-zones"),
     SET_ZONES: Symbol("set-zones"),
     ENEMY_CELL: Symbol("enemy-cell"),
     HOME_CELL: Symbol("home-cell"),
