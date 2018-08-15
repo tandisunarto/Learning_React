@@ -40,24 +40,24 @@ class Arena extends React.Component {
         this.initArena();
     }
     
-    playAgainHandler = () => {
-        this.initArena();
+    playAgainHandler = () => {        
+        this.props.onResetZones();
+        // this.initArena();
     }
 
     initArena = () => {
         let zones = {};
-        this.props.onResetZones();
         sides.forEach(side => {
             let zone = (side === "Enemy") ? this.props.enemyZones : this.props.homeZones;
             let updatedZone = GenerateShips(zone);
-
             if (side === "Enemy") 
                 zones.enemyZones = updatedZone;
             else
-                zones.homeZones = updatedZone;            
+                zones.homeZones = updatedZone;
         })
-        console.log(zones);        
-        this.props.onSetZones(zones);
+        // console.log("Init Zones");
+        // console.log(zones);
+        // this.props.onSetZones(zones);
     }
 
     render() {
@@ -89,6 +89,7 @@ Arena.propTypes = {
 };
 
 const mapStateToProps = (state) => {
+    console.log("Arena mapStateToProps");
     return {
         enemyZones: state.enemyZones,
         homeZones: state.homeZones
