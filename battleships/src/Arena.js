@@ -60,7 +60,7 @@ class Arena extends React.Component {
                   ))}
                </Grid>
                <div style={{marginTop: 30}}>
-                  <Button onClick={this.playAgainHandler} variant='extendedFab'>PLAY AGAIN</Button>
+                  <Button disabled={!this.props.gameOver} onClick={this.playAgainHandler} variant='extendedFab'>PLAY AGAIN</Button>
                </div>
          </React.Fragment>
       );
@@ -73,8 +73,9 @@ Arena.propTypes = {
 
 const mapStateToProps = (state) => {
    return {
-      enemyZones: state.enemyZones,
-      homeZones: state.homeZones
+      enemyZone: state.enemyZone,
+      homeZone: state.homeZone,
+      gameOver: state.gameOver
    }
 }
 

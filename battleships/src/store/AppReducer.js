@@ -15,6 +15,7 @@ const initialState = {
     homeZone: InitZone(),
     enemyShipsSunk: 0,
     homeShipsSunk: 0,
+    gameOver: false
 }
 
 function InitZone() {
@@ -37,20 +38,21 @@ function InitZone() {
 const appReducer = (state = initialState, action) => {
    switch(action.type) {
       case BATTLE_ACTIONS.ATTACK: {
-         let coord = action.coord;
-         let updatedZone = [
-               ...state.enemyZone,            
-         ]
 
-         if (BattleService.CellNotAttacked(updatedZone[coord.row][coord.col])) {
-            let status = updatedZone[coord.row][coord.col].status;
-            updatedZone[coord.row][coord.col].status = BattleService.ProcessCellStatus(status);
-            console.log("Attack ship")
+         if (state.gameOver) {
+            return state;
          }
 
-         return {
+         let [updatedZone, result] = BattleService.AttackEnemyZone(action.coord, state.enemyZone);
+         if (result.gameOver) {
+            return state;
+         } else {
+            return {
+               ...state,
                enemyZone: updatedZone,
-               homeZone: state.homeZone
+               homeZone: state.homeZone,
+               gameOver: result.gameOver
+            }
          }
       }
       case BATTLE_ACTIONS.INIT_ZONES: {
@@ -65,8 +67,10 @@ const appReducer = (state = initialState, action) => {
          homeZone[4][4].status = (homeZone[4][4].status === "W") ? "M" : "H";
 
          return {
+               ...state,
                enemyZone: enemyZone,
-               homeZone: homeZone
+               homeZone: homeZone,
+               gameOver: false
          }
       }
       default: {
