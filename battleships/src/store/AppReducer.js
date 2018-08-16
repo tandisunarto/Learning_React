@@ -1,6 +1,8 @@
 import BATTLE_ACTIONS from './BattleAction';
 import { GenerateShips } from '../ship/ShipServices';
 
+import * as BattleService from '../ship/BattleService'
+
 const sides = ["Enemy", "Home"];
 
 // W : water
@@ -40,8 +42,11 @@ const appReducer = (state = initialState, action) => {
                ...state.enemyZone,            
          ]
 
-         let status = updatedZone[coord.row][coord.col].status;
-         updatedZone[coord.row][coord.col].status = (status === "W") ? "M" : "H";
+         if (BattleService.CellNotAttacked(updatedZone[coord.row][coord.col])) {
+            let status = updatedZone[coord.row][coord.col].status;
+            updatedZone[coord.row][coord.col].status = BattleService.ProcessCellStatus(status);
+            console.log("Attack ship")
+         }
 
          return {
                enemyZone: updatedZone,
