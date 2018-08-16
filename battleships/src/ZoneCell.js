@@ -11,66 +11,73 @@ import BATTLE_ACTIONS from './store/BattleAction';
 
 class ZoneCell extends React.Component {
 
-    attackHandler = (e)=> {
-        if (this.props.side === 'Enemy') {
-            let coord = {
-                row: this.props.row,
-                col: this.props.col
-            };
-            this.props.onAttack(coord);
-        }
-    }
+   attackHandler = (e)=> {
+      if (this.props.side === 'Enemy') {
+         let coord = {
+               row: this.props.row,
+               col: this.props.col
+         };
+         this.props.onAttack(coord);
+      }
+   }
 
-    cellStyle = (side, row, col) => {
-        const { classes } = this.props;
-        let zone = side === 'Enemy' ? this.props.enemyZone : this.props.homeZone        
-        return (zone[row][col].status === 'W' ? 
-            (side === 'Enemy' ? classes.enemyCell : classes.homeCell) : 
-            zone[row][col].status === 'S' ? classes.shipCell :
-            zone[row][col].status === 'H' ? classes.hitCell : classes.missedCell)
-    };
+   cellStyle = (side, row, col) => {
+      const { classes } = this.props;
+      let zone = side === 'Enemy' ? this.props.enemyZone : this.props.homeZone;
 
-    render() {
+      let style = (side === 'Enemy') ? classes.enemyCell : classes.homeCell;
+      if (zone[row][col].status === 'S' && side === "Home")
+         style = classes.shipCell;
+      else if (zone[row][col].status === 'H')
+         style = classes.hitCell;
+      else if (zone[row][col].status === 'M')
+         style = classes.missedCell; 
 
-        const { classes } = this.props;
-        const classStyle = (
-            classes.cell + ' ' + this.cellStyle(this.props.side, this.props.row, this.props.col)
-        );
-        let zone = this.props.side === 'Enemy' ? this.props.enemyZone : this.props.homeZone
+      return style;
+   };
 
-        return (
-            <Grid item>
-                <Paper className={classes.paper}>
-                    <Button variant="fab" id={this.props.side + ':' + this.props.row + ':' + this.props.col} 
-                        onClick={this.attackHandler} className={classStyle}>
-                        {zone[this.props.row][this.props.col].status === "S" ? 
-                            zone[this.props.row][this.props.col].index + '/' + zone[this.props.row][this.props.col].length : "≈"}
-                            {/* (zone[this.props.row][this.props.col].orientation === "H" ? "—" : "|") : "≈"} */}
-                    </Button>
-                </Paper>
-            </Grid>
-        )
-    }
+   render() {
+
+      const { classes } = this.props;
+      const classStyle = (
+         classes.cell + ' ' + this.cellStyle(this.props.side, this.props.row, this.props.col)
+      );
+      let zone = this.props.side === 'Enemy' ? this.props.enemyZone : this.props.homeZone
+
+      return (
+         <Grid item>
+               <Paper className={classes.paper}>
+                  <Button variant="fab" id={this.props.side + ':' + this.props.row + ':' + this.props.col} 
+                     onClick={this.attackHandler} className={classStyle}>
+                     {zone[this.props.row][this.props.col].status === "S" && this.props.side === "Home" ? 
+                           // zone[this.props.row][this.props.col].index + '/' + zone[this.props.row][this.props.col].length : "≈"
+                           (zone[this.props.row][this.props.col].orientation === "H" ? "—" : "|") : "≈"
+                     }
+                  </Button>
+               </Paper>
+         </Grid>
+      )
+   }
 }
 
 const mapPropsToState = (state) => {
-    return {
-        enemyZone: state.enemyZone,
-        homeZone: state.homeZone
-    }
+   return {
+      enemyZone: state.enemyZone,
+      homeZone: state.homeZone
+   }
 }
 
 const mapDispatchToState = (dispatch) => {
-    return {
-        onAttack: (coord) => dispatch({
-            type: BATTLE_ACTIONS.ATTACK,
-            coord: coord
-        }),
-    }
+   return {
+      onAttack: (coord) => dispatch({
+         type: BATTLE_ACTIONS.ATTACK,
+         coord: coord
+      }),
+   }
 }
 
 ZoneCell.propTypes = {
-    classes: PropTypes.object.isRequired,
+   classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(connect(mapPropsToState, mapDispatchToState)(ZoneCell));
