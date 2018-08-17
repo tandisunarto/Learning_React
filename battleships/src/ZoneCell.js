@@ -26,7 +26,7 @@ class ZoneCell extends React.Component {
       let zone = side === 'Enemy' ? this.props.enemyZone : this.props.homeZone;
 
       let style = (side === 'Enemy') ? classes.enemyCell : classes.homeCell;
-      if (zone[row][col].status === 'S' && side === "Home")
+      if (zone[row][col].status === 'S' /*&& side === "Home"*/)
          style = classes.shipCell;
       else if (zone[row][col].status === 'H')
          style = classes.hitCell;
@@ -49,7 +49,7 @@ class ZoneCell extends React.Component {
                <Paper className={classes.paper}>
                   <Button variant="fab" id={this.props.side + ':' + this.props.row + ':' + this.props.col} 
                      onClick={this.attackHandler} className={classStyle}>
-                     {zone[this.props.row][this.props.col].status === "S" && this.props.side === "Home" ? 
+                     {zone[this.props.row][this.props.col].status === "S" /*&& this.props.side === "Home"*/ ? 
                            // zone[this.props.row][this.props.col].index + '/' + zone[this.props.row][this.props.col].length : "≈"
                            (zone[this.props.row][this.props.col].orientation === "H" ? "—" : "|") : "≈"
                      }

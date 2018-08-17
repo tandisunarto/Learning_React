@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 
 import BATTLE_ACTIONS from './store/BattleAction';
+import { Typography, Paper } from '@material-ui/core';
 
 const sides = ["Enemy", "Home"];
 
@@ -44,24 +45,25 @@ class Arena extends React.Component {
    }
 
    render() {
-      const { classes } = this.props;        
+      const { classes } = this.props;
 
       return (
          <React.Fragment>
-               <Grid container className={classes.root} justify="center" spacing={32}>
-                  {sides.map((value, index) => (
-                  <Grid key={value} item>
-                     <div className={classes.arena}>
-                     {/* <Paper className={classes.paper}> */}
-                           <Zones side={value} />
-                     {/* </Paper> */}
-                     </div>
-                  </Grid>
-                  ))}
+            <Grid container className={classes.root} justify="center" spacing={32}>
+               {sides.map((value, index) => (
+               <Grid key={value} item>
+                  <div className={classes.arena}>
+                     <Zones side={value} />
+                  </div>
                </Grid>
-               <div style={{marginTop: 30}}>
-                  <Button disabled={!this.props.gameOver} onClick={this.playAgainHandler} variant='extendedFab'>PLAY AGAIN</Button>
+               ))}
+            </Grid>
+            <div style={{marginTop: 30}}>
+               <Button disabled={!this.props.gameOver} onClick={this.playAgainHandler} variant='extendedFab'>PLAY AGAIN</Button>
+               <div hidden={!this.props.gameOver} style={{marginTop: 30}}>
+                  <Typography variant="display1">Winner: {this.props.winner}</Typography>
                </div>
+            </div>
          </React.Fragment>
       );
    }
@@ -75,7 +77,8 @@ const mapStateToProps = (state) => {
    return {
       enemyZone: state.enemyZone,
       homeZone: state.homeZone,
-      gameOver: state.gameOver
+      gameOver: state.gameOver,
+      winner: state.winner
    }
 }
 

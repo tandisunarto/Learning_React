@@ -15,7 +15,8 @@ const initialState = {
     homeZone: InitZone(),
     enemyShipsSunk: 0,
     homeShipsSunk: 0,
-    gameOver: false
+    gameOver: false,
+    winner: ""
 }
 
 function InitZone() {
@@ -27,7 +28,6 @@ function InitZone() {
             orientation: '',
             length: 0,
             index: 0,
-            turn: 'Home'
          }
       })
       return row;
@@ -43,16 +43,30 @@ const appReducer = (state = initialState, action) => {
             return state;
          }
 
-         let [updatedZone, result] = BattleService.AttackEnemyZone(action.coord, state.enemyZone);
-         if (result.gameOver) {
-            return state;
+         // home's turn to attack
+         let [updatedZone, shipDestroyed] = BattleService.AttackEnemyZone(action.coord, state.enemyZone);
+         let enemyShipsSunk = (shipDestroyed === true) ? state.enemyShipsSunk + 1 : state.enemyShipsSunk;      
+         let homeShipsSunk = state.homeShipsSunk;
+         let gameOver = (enemyShipsSunk === 5) ? true : false;
+         let winner = "";
+
+         if (!gameOver) {
+            // enemy's turn to attack
+            let [updatedZone, shipDestroyed] = BattleService.AttackHomeZone(state.homeZone);
+            homeShipsSunk = (shipDestroyed === true) ? state.homeShipsSunk + 1 : state.homeShipsSunk;
+            gameOver = (homeShipsSunk === 5) ? true : false;
+            winner = (gameOver === true) ? "Enemy" : "";
          } else {
-            return {
-               ...state,
-               enemyZone: updatedZone,
-               homeZone: state.homeZone,
-               gameOver: result.gameOver
-            }
+            winner = "Home";
+         }
+
+         return {
+            ...state,
+            enemyZone: updatedZone,
+            enemyShipsSunk: enemyShipsSunk,
+            homeShipsSunk: homeShipsSunk,
+            gameOver: gameOver,
+            winner: winner
          }
       }
       case BATTLE_ACTIONS.INIT_ZONES: {
@@ -63,15 +77,14 @@ const appReducer = (state = initialState, action) => {
                GenerateShips(zone);
          })
 
-         // pretend computer attacks first
-         homeZone[4][4].status = (homeZone[4][4].status === "W") ? "M" : "H";
-
          return {
                ...state,
                enemyZone: enemyZone,
                homeZone: homeZone,
-               gameOver: false
-         }
+               enemyShipsSunk: 0,
+               homeShipsSunk: 0,
+               gameOver: false,               
+         }  
       }
       default: {
          return state;
