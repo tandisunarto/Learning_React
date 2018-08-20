@@ -51,21 +51,35 @@ const AttackEnemyZone = (coord, enemyZone) => {
    ];
 }
 
-const AttackHomeZone = (homeZone) => {
+const AttackHomeZone = (zone) => {
 
    let shipDestroyed = false;
-   let zone = [
-      ...homeZone,
+   let homeZone = [
+      ...zone.homeZone
    ]
 
-   // for testing, use random row and col
-   let row = Math.floor(Math.random() * 10);
-   let col = Math.floor(Math.random() * 10);
-   zone[row][col].status = zone[row][col].status === "S" ? "H" : "M";
+   let [row, col] = CoordToAttack(homeZone);
+   homeZone[row][col].status = homeZone[row][col].status === "S" ? "H" : "M";
 
    return [
-      zone,
+      homeZone,
       shipDestroyed
+   ]
+}
+
+const CoordToAttack = (homeZone) => {
+
+   let row = 0;
+   let col = 0;
+   do {
+      row = Math.floor(Math.random() * 10);
+      col = Math.floor(Math.random() * 10);
+      console.log(homeZone[row][col])
+   } while (homeZone[row][col].status !== "W" && homeZone[row][col].status !== "S")
+
+   return [
+      row,
+      col
    ]
 }
 

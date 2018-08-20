@@ -11,12 +11,18 @@ const sides = ["Enemy", "Home"];
 // M : miss
 
 const initialState = {
-    enemyZone: InitZone(),
-    homeZone: InitZone(),
-    enemyShipsSunk: 0,
-    homeShipsSunk: 0,
-    gameOver: false,
-    winner: ""
+   enemyZone: InitZone(),
+   homeZone: InitZone(),
+   enemyShipsSunk: 0,
+   homeShipsSunk: 0,
+   gameOver: false,
+   winner: "",
+   enemyAttackStatus: {
+      hit: false,
+      lastHitRow: -1,
+      lastHitCol: -1,
+      orientation: ""
+   }
 }
 
 function InitZone() {
@@ -52,7 +58,7 @@ const appReducer = (state = initialState, action) => {
 
          if (!gameOver) {
             // enemy's turn to attack
-            let [updatedZone, shipDestroyed] = BattleService.AttackHomeZone(state.homeZone);
+            let [updatedZone, shipDestroyed] = BattleService.AttackHomeZone(state);
             homeShipsSunk = (shipDestroyed === true) ? state.homeShipsSunk + 1 : state.homeShipsSunk;
             gameOver = (homeShipsSunk === 5) ? true : false;
             winner = (gameOver === true) ? "Enemy" : "";

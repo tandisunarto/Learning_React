@@ -78,7 +78,7 @@ const mapStateToProps = (state) => {
       enemyZone: state.enemyZone,
       homeZone: state.homeZone,
       gameOver: state.gameOver,
-      winner: state.winner
+      winner: state.winner,
    }
 }
 

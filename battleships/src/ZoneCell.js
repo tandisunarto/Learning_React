@@ -38,6 +38,8 @@ class ZoneCell extends React.Component {
 
    render() {
 
+      // console.log(this.props);
+
       const { classes } = this.props;
       const classStyle = (
          classes.cell + ' ' + this.cellStyle(this.props.side, this.props.row, this.props.col)
@@ -63,7 +65,8 @@ class ZoneCell extends React.Component {
 const mapPropsToState = (state) => {
    return {
       enemyZone: state.enemyZone,
-      homeZone: state.homeZone
+      homeZone: state.homeZone,
+      enemyAttackStatus: state.enemyAttackStatus
    }
 }
 
