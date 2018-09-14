@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 
 import BATTLE_ACTIONS from './store/BattleAction';
-import { Typography, Paper } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 
 const sides = ["Enemy", "Home"];
 
