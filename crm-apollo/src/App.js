@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 // import logo from './logo.svg';
 import './App.css';
 import Contacts from './Contacts';
-import { ApolloProvider, Query } from 'react-apollo'; 
+import { ApolloProvider } from 'react-apollo';
 import ApolloClient from 'apollo-boost';
 import gql from 'graphql-tag';
+import Query from './Query';
 
 const client = new ApolloClient({
   uri: "https://api-useast.graphcms.com/v1/cjm6qmvew02p601c4jqk7dtmy/master"
@@ -33,11 +34,12 @@ class App extends Component {
             <h1 className="App-title">CRM</h1>
           </header>
           <Query query={POST_QUERY}>
-            {({loading, data}) => {
-              if (loading) return "Loading...";
+          {
+            (data) => {
               const { posts } = data;
               return posts.map(post => <h1>{post.title}</h1>)
-            }}
+            }
+          }
           </Query>
         </div>
       </ApolloProvider>
