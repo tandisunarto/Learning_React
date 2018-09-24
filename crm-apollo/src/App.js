@@ -1,25 +1,48 @@
 import React, { Component } from 'react';
-// import logo from './logo.svg';
 import './App.css';
-import Contacts from './Contacts';
+
+import Game from './Game';
+import MyQuery from './MyQuery';
+
 import { ApolloProvider } from 'react-apollo';
-import ApolloClient from 'apollo-boost';
-import gql from 'graphql-tag';
-import Query from './Query';
 
-const client = new ApolloClient({
-  uri: "https://api-useast.graphcms.com/v1/cjm6qmvew02p601c4jqk7dtmy/master"
-});
+import Posts from './Posts';
 
-const POST_QUERY = gql`
-{
-  posts {
-    id
-    title
-    body
-  }
-}
-`;
+import client from "./Client";
+
+// const defaultState = {
+//     authentication: {
+//         __typename: 'Authentication',
+//         twofactorEnabled: false
+//     }  
+// }
+
+// const twofactorEnable = gql`
+//     query TwofactorEnabled {
+//         twofactorEnabled @client
+//     }
+// `;
+
+// const cache = new InMemoryCache();
+// const stateLink = withClientState({
+//     cache,
+//     defaults: defaultState,
+//     // resolvers: {
+//     //     Query: {
+//     //         twofactorEnable
+//     //     }
+//     // }
+// })
+
+// const client = new ApolloClient({
+//     link: ApolloLink.from([
+//         stateLink,
+//         new HttpLink({
+//             uri: "https://api-useast.graphcms.com/v1/cjm6qmvew02p601c4jqk7dtmy/master",
+//         })
+//     ]),
+//     cache: cache
+// });
 
 // client.query({
 //   query: testQuery
@@ -33,14 +56,16 @@ class App extends Component {
           <header className="App-header">
             <h1 className="App-title">CRM</h1>
           </header>
-          <Query query={POST_QUERY}>
+          {/* <MyQuery query={POST_QUERY}>
           {
             (data) => {
               const { posts } = data;
               return posts.map(post => <h1>{post.title}</h1>)
             }
           }
-          </Query>
+          </MyQuery> */}
+          <Posts />
+          <Game />
         </div>
       </ApolloProvider>
     );
