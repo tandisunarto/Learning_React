@@ -1,8 +1,7 @@
-import { ApolloClient } from 'apollo-boost';
+import { ApolloClient, gql } from 'apollo-boost';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloLink } from 'apollo-link';
 import { withClientState } from 'apollo-link-state';
-import { gql } from 'graphql-tag';
 
 const defaultState = {
     currentGame: {
@@ -22,7 +21,36 @@ const cache = new InMemoryCache();
 
 const stateLink = withClientState({
     cache,
-    defaults: defaultState
+    defaults: defaultState,
+    resolvers: {
+        Mutation: {
+            updateTwofactorEnabled: (_, {enableTwofactor}, {cache}) => {
+
+                const query = gql`
+                    query {
+                    authentication @client {
+                        __typename
+                        twofactorEnabled
+                    }
+                }`
+
+                const prevState = cache.readQuery({query});
+
+                const data = {
+                    ...prevState,
+                    authentication: {
+                        ...prevState.authentication, 
+                        twofactorEnabled: enableTwofactor
+                    }
+                }
+                
+                cache.writeData({
+                    query,
+                    data
+                })
+            }
+        }
+    }
 })
 
 const Client = new ApolloClient({
