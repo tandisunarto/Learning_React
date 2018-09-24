@@ -1,11 +1,12 @@
 import React from 'react';
 
 import { graphql, compose } from 'react-apollo';
-import getCurrentGame from './graphql/getCurrentGame';
+import { getCurrentGame, getAuthentication } from './graphql/query';
 
 class Game extends React.Component {
     render() {
-        const { currentGame } = this.props;
+        const { currentGame, authentication } = this.props;
+        console.log(currentGame, authentication);
         return (             
             <React.Fragment>
                 <div>
@@ -13,6 +14,9 @@ class Game extends React.Component {
                 </div>
                 <div>
                     {currentGame.teamBName}
+                </div>
+                <div>
+                    two-factor enabled: {authentication.twofactorEnabled ? "Yes" : "No"}
                 </div>
             </React.Fragment>
         )
@@ -24,5 +28,10 @@ export default compose(
         props: ({data:{currentGame}}) => ({
             currentGame
         })
-    })    
+    }),
+    graphql(getAuthentication, {
+        props: ({data:{authentication}}) => ({
+            authentication
+        })
+    }),
 )(Game); 

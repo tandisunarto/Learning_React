@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import './App.css';
 
+import Posts from './Posts';
 import Game from './Game';
-import MyQuery from './MyQuery';
+// import MyQuery from './MyQuery';
 
 import { ApolloProvider } from 'react-apollo';
-
-import Posts from './Posts';
-
 import client from "./Client";
 
 // const defaultState = {

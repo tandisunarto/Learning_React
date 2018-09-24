@@ -11,6 +11,10 @@ const defaultState = {
         teamBScore: 0,
         teamAName: "Liverpool",
         teamBName: "Chelsea"
+    },
+    authentication: {
+        __typename: "Authentication",
+        twofactorEnabled: false
     }
 };
 
