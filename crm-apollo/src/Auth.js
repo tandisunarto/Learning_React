@@ -8,7 +8,7 @@ import { AllBooks, AllBooks2 } from './AllBooks';
 
 import { Books, BooksByType } from './Books';
 
-import MyBooksByType from './BooksByType';
+import BooksManual from './BooksManual';
 
 class Auth extends React.Component {
 
@@ -74,7 +74,7 @@ class Auth extends React.Component {
                 {
                     client => (
                         <div>
-                            <MyBooksByType books={books} />
+                            <BooksManual books={books} />
                             <button onClick={() => this.handleGetBooks(client)}>Get Books</button>
                         </div>
                     )

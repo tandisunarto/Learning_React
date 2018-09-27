@@ -1,6 +1,6 @@
 import React from 'react'
 
-const MyBooksByType = (props) => {
+const BooksManual = (props) => {
 
     const books = props.books.map((book, idx) => {
         return <h3 key={idx}>Title: {book.title} - Author: {book.author} </h3>
@@ -13,4 +13,4 @@ const MyBooksByType = (props) => {
     )
 }
 
-export default MyBooksByType;
+export default BooksManual;
