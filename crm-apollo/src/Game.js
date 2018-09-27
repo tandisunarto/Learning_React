@@ -1,12 +1,12 @@
 import React from 'react';
 
 import { graphql, compose, Query } from 'react-apollo';
-import { getCurrentGame, getAuthentication } from './graphql/query';
+import { getCurrentGame, getAuthentication, getAllBooks } from './graphql/query';
 import updateTwofactorEnabled from './graphql/mutations';
 
-// import { AllBooks, AllBooks2 } from './AllBooks';
+import { AllBooks, AllBooks2 } from './AllBooks';
 
-import { AllBooks, BooksByType } from './Books';
+import { Books, BooksByType } from './Books';
 
 class Game extends React.Component {
 
@@ -24,8 +24,11 @@ class Game extends React.Component {
 
         const { currentGame, authentication, allBookses, updateTwofactorEnabled} = this.props;
 
-        return (             
+        return (
             <React.Fragment>
+                {/*****************************************************************************************/}
+                {/* method 1 - import gql to game component and then pass it into the books compoents     */}
+                {/*****************************************************************************************/}
                 {/* <AllBooks query={getAllBooks}>
                 {
                     (data) => {
@@ -40,8 +43,11 @@ class Game extends React.Component {
                 </AllBooks>
                 <AllBooks2 query={getAllBooks} /> */}
 
-                <AllBooks />
-                <BooksByType type="Programming"/>
+                {/*****************************************************************************************/}
+                {/* method 2 - import gql directly inside book component                                  */}
+                {/*****************************************************************************************/}
+                {/* <Books />
+                <BooksByType type="Programming"/> */}
 
                 <div>
                     {currentGame.teamAName}

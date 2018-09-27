@@ -2,7 +2,7 @@ import React from 'react';
 import { Query } from 'react-apollo';
 import { getAllBooks, getBooksByType } from './graphql/booksQuery';
 
-const AllBooks = () => (
+const Books = () => (
     <Query query={getAllBooks}>
     {
         ({loading, error, data}) => {
@@ -43,6 +43,6 @@ const BooksByType = ({type}) => (
 )
 
 export {
-    AllBooks,
+    Books,
     BooksByType
 }
