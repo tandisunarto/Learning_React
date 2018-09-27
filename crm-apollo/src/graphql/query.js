@@ -27,8 +27,19 @@ const getAllBooks = gql`
     }
 `;
 
+const getBooksByType = gql`
+    query ($type:String!) {
+        allBookses(filter:{type:$type}) {
+            id
+            title
+            author
+        }
+    }
+`;
+
 export {
     getCurrentGame,
     getAuthentication,
-    getAllBooks
+    getAllBooks,
+    getBooksByType
 }

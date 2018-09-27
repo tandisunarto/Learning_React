@@ -1,14 +1,20 @@
 import React from 'react';
 
-import { graphql, compose, Query } from 'react-apollo';
-import { getCurrentGame, getAuthentication, getAllBooks } from './graphql/query';
+import { graphql, compose, ApolloConsumer } from 'react-apollo';
+import { getCurrentGame, getAuthentication, getAllBooks, getBooksByType } from './graphql/query';
 import updateTwofactorEnabled from './graphql/mutations';
 
 import { AllBooks, AllBooks2 } from './AllBooks';
 
 import { Books, BooksByType } from './Books';
 
+import MyBooksByType from './BooksByType';
+
 class Game extends React.Component {
+
+    state = {
+        books: []
+    }
 
     handleUpdateAuth = () => {
         let updateAuth = this.props.updateTwofactorEnabled;
@@ -20,9 +26,24 @@ class Game extends React.Component {
         });
     }
 
+    handleGetBooks = async (client) => {
+        const { data } = await client.query({
+            query: getBooksByType,
+            variables: {
+                type: "Scifi"
+            }
+        })
+
+        this.setState({
+            books: data.allBookses
+        })
+    }
+
     render() {
 
         const { currentGame, authentication, allBookses, updateTwofactorEnabled} = this.props;
+
+        const { books } = this.state;
 
         return (
             <React.Fragment>
@@ -49,6 +70,16 @@ class Game extends React.Component {
                 {/* <Books />
                 <BooksByType type="Programming"/> */}
 
+                <ApolloConsumer>
+                {
+                    client => (
+                        <div>
+                            <MyBooksByType books={books} />
+                            <button onClick={() => this.handleGetBooks(client)}>Get Books</button>
+                        </div>
+                    )
+                }
+                </ApolloConsumer>
                 <div>
                     {currentGame.teamAName}
                 </div>
@@ -58,6 +89,7 @@ class Game extends React.Component {
                 <div>
                     two-factor enabled: {authentication.twofactorEnabled ? "Yes" : "No"}
                 </div>
+
                 <button onClick={this.handleUpdateAuth}>Toggle Auth (handle)</button>
                 <button onClick={() => updateTwofactorEnabled({
                     variables: {
@@ -70,6 +102,7 @@ class Game extends React.Component {
 }
 
 export default compose(
+    // hooking up the local data to props 
     graphql(getCurrentGame, {
         props: ({data:{currentGame}}) => ({
             currentGame
@@ -80,6 +113,13 @@ export default compose(
             authentication
         })
     }),
+    // hooking up the remote data to props 
+    graphql(getAllBooks, {
+        props: ({data}) => ({
+            books: data.allBookses
+        })
+    }),
+    // mutating local data
     graphql(updateTwofactorEnabled, { 
         name: 'updateTwofactorEnabled'
     })

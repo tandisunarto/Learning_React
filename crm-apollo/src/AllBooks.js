@@ -14,7 +14,6 @@ const AllBooks = ({children, ...props}) => (
     </Query>
 )
 
-
 const AllBooks2 = ({children, ...props}) => (
     <Query {...props}>
     {
