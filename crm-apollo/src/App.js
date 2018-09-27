@@ -12,7 +12,7 @@ import client from "./Client";
 //     authentication: {
 //         __typename: 'Authentication',
 //         twofactorEnabled: false
-//     }  
+//     } 
 // }
 
 // const twofactorEnable = gql`

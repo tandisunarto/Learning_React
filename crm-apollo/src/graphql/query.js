@@ -17,8 +17,18 @@ const getAuthentication = gql`
     }
 `;
 
+const getAllBooks = gql`
+    query {
+        allBookses {
+            id
+            title
+            author
+        }
+    }
+`;
 
 export {
     getCurrentGame,
-    getAuthentication
+    getAuthentication,
+    getAllBooks
 }

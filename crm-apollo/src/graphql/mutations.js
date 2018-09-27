@@ -1,7 +1,7 @@
 import { gql } from 'apollo-boost';
 
 export default gql`
-    mutation updateTwofactorEnabled($enableTwofactor: Boolean!) {
+    mutation ($enableTwofactor: Boolean!) {
         updateTwofactorEnabled(enableTwofactor : $enableTwofactor) @client {
             twofactorEnabled
         }
