@@ -2,11 +2,15 @@ import React, { Component } from 'react';
 import './App.css';
 
 import Posts from './Posts';
-import Game from './Game';
+import Auth from './Auth';
+import AddBook from './AddBook';
+
 // import MyQuery from './MyQuery';
 
 import { ApolloProvider } from 'react-apollo';
 import client from "./Client";
+
+import { Route, Switch } from 'react-router-dom';
 
 // const defaultState = {
 //     authentication: {
@@ -62,8 +66,11 @@ class App extends Component {
             }
           }
           </MyQuery> */}
-          <Posts />
-          <Game />
+          <Switch>
+            <Route path="/posts" component={Posts} />
+            <Route path="/auth" component={Auth} />
+            <Route path="/add" component={AddBook} />
+          </Switch>
         </div>
       </ApolloProvider>
     );

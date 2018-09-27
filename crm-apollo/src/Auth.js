@@ -10,7 +10,7 @@ import { Books, BooksByType } from './Books';
 
 import MyBooksByType from './BooksByType';
 
-class Game extends React.Component {
+class Auth extends React.Component {
 
     state = {
         books: []
@@ -123,4 +123,4 @@ export default compose(
     graphql(updateTwofactorEnabled, { 
         name: 'updateTwofactorEnabled'
     })
-)(Game); 
+)(Auth); 
