@@ -6,7 +6,8 @@ const authStatus = gql`
         authentication @client {
             userLoggedIn
             twofactorEnabled
-        }
+        },
+        dummy
     }
 `;
 
@@ -21,6 +22,22 @@ const allBooks = gql`
     }
 `;
 
+const addBook = gql`
+    mutation($title:String!, $author:String!, $type:String!) {
+        createBooks(title:$title, author:$author, type:$type) {
+            id
+            title
+            author
+            type
+        }
+    }
+`;
+
+const set2FAEnabled = gql`
+    mutation Set2FAEnabled($twofactorEnabled: Boolean!, $dummy: Boolean!) {        
+        set2FAEnabled(twofactorEnabled: $twofactorEnabled, dummy: $dummy) @client
+    },
+`;
 
 const comboData = gql`
     query {
@@ -39,5 +56,7 @@ const comboData = gql`
 export {
     authStatus,
     allBooks,
-    comboData
+    comboData,
+    addBook,
+    set2FAEnabled
 }

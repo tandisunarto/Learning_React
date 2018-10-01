@@ -1,7 +1,9 @@
 import { ApolloClient, InMemoryCache, ApolloLink, HttpLink } from 'apollo-boost';
 import { withClientState } from 'apollo-link-state';
+import { authStatus } from './graphql/dataQuery';
 
 const defaultState = {
+    dummy: false,
     authentication: {
         __typename: "Authentication",
         userLoggedIn: false,
@@ -10,7 +12,18 @@ const defaultState = {
 }
 
 const resolvers = {
-    
+    Mutation: {
+        set2FAEnabled: (_, {twofactorEnabled, dummy}, {cache}) => {
+            const data = { 
+                authentication: {
+                    __typename: "Authentication",
+                    twofactorEnabled
+                },
+                dummy 
+            };
+            cache.writeData({data});
+        }
+    }
 }
 
 const cache = new InMemoryCache();
