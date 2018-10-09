@@ -4,8 +4,8 @@ import { authStatus, allBooks } from './graphql/dataQuery';
 import { comboData } from './graphql/dataQuery';
 
 class AuthStatusCompose extends React.Component {
-    render() {
-        
+    render() {        
+
         const { auth, allBookses } = this.props;
         const books = (allBookses !== undefined) ? 
         (            
