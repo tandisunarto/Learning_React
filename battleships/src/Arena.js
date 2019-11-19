@@ -13,20 +13,25 @@ import { Typography } from '@material-ui/core';
 const sides = ["Enemy", "Home"];
 
 const styles = theme => ({
-    root: {
-        flexGrow: 1,
-    },
-    paper: {
-        height: 450,
-        width: 450,
-    },
-    arena: {
-        height: 450,
-        width: 450,
-    },
-    control: {
-        padding: theme.spacing.unit * 2,
-    },
+   root: {
+      flexGrow: 1
+   },
+   paper: {
+      height: 450,
+      width: 450
+   },
+   arena: {
+      height: 450,
+      width: 450
+   },
+   zoneHeader: {
+      marginBottom: 20,
+      fontSize: '1.3rem',
+      fontWeight: 'bold'
+   },
+   control: {
+      padding: theme.spacing.unit * 2
+   }
 });
 
 class Arena extends React.Component {
@@ -52,6 +57,7 @@ class Arena extends React.Component {
             <Grid container className={classes.root} justify="center" spacing={32}>
                {sides.map((value, index) => (
                <Grid key={value} item>
+                  <div className={classes.zoneHeader}>{index === 0 ? "Enemy" : "Player"}</div>                  
                   <div className={classes.arena}>
                      <Zones side={value} />
                   </div>
