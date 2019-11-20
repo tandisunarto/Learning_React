@@ -2,10 +2,20 @@ import React, { useState } from 'react';
 
 const CounterHook = () => {
 
-  const [count, incrementCount] = useState(0);
+  const defaultState = {
+    count: 0,
+    name: "Hook"
+  };
+
+  const [state, incrementCount] = useState(defaultState);
+
+  const handleClick = () => ({
+    ...state,
+    count: state.count + 1
+  });
 
   return (
-    <button onClick={() => incrementCount(count + 1)}> Count {count}</button>
+    <button onClick={() => incrementCount(handleClick())}> {state.name} Count {state.count}</button>
   )
 }
 
