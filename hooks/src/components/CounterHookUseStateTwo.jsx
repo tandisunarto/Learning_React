@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const CounterHookTwo = () => {
+const CounterHookUseStateTwo = () => {
   const initialCount = 0;
   const [count, setCount] = useState(initialCount);
 
@@ -37,4 +37,4 @@ const CounterHookTwo = () => {
   )
 }
 
-export default CounterHookTwo;
+export default CounterHookUseStateTwo;

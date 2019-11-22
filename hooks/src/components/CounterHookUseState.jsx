@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const CounterHook = () => {
+const CounterHookUseState = () => {
 
   const defaultState = {
     count: 0,
@@ -37,4 +37,4 @@ const CounterHook = () => {
   );
 }
 
-export default CounterHook;
+export default CounterHookUseState;

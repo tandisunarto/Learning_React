@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const NameObjectHook = () => {
+const NameObjectHookUseState = () => {
 
   const [name, setName] = useState({firstName:"", lastName: ""});
 
@@ -32,4 +32,4 @@ const NameObjectHook = () => {
   );
 }
 
-export default NameObjectHook;
+export default NameObjectHookUseState;
